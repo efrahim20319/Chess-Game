@@ -1,0 +1,16 @@
+@font-face {
+    font-family: teste;
+    src: url("../../fonts/Fruktur-Regular.ttf");
+}
+
+.cabecalho {
+    display: flex;
+    font-size: 1.4em;
+    background-color: black;
+    color: #fff;
+    font-family: teste;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    padding: 1em 1.5em;
+}

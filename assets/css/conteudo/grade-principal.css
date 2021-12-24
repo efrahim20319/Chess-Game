@@ -1,0 +1,7 @@
+.grade_principal {
+    display: grid;
+    background-color: rgb(143, 146, 145);
+    
+    grid-template-columns: repeat(8, 67.8px);
+    grid-template-rows: repeat(8, 60px);
+}

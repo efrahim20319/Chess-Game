@@ -1,0 +1,18 @@
+body {
+    display: grid;
+    grid-template-rows: 3.5em calc(100vh - 3.5em) 3em;
+    grid-template-areas: 
+        "cabecalho"
+        "conteudo"
+        "rodape";
+}
+
+.cabecalho {
+    grid-area: cabecalho;
+}
+.conteudo {
+    grid-area: conteudo;
+}
+.rodape {
+    grid-area: rodape;
+}

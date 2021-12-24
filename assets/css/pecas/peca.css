@@ -1,0 +1,9 @@
+.peca {
+    margin: 0;
+    width: 67.8px;
+    height: 60px;
+}
+
+.preto {
+    filter: invert(1);
+}

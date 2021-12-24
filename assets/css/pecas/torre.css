@@ -1,0 +1,6 @@
+.torre {
+    background-image: url("../../img/pecas/torre_branca.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+}

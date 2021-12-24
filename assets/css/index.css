@@ -1,0 +1,17 @@
+@import url("./reset.css");
+@import url("./normalize.css");
+@import url("./style.css");
+@import url("./cabecalho/cabecalho.css");
+@import url("./cabecalho/menu.css");
+@import url("./conteudo/conteudo.css");
+@import url("./cabecalho/cabecalho-logo.css");
+@import url("./conteudo/grade-principal.css");
+@import url("./conteudo/casa.css");
+@import url("./pecas/peca.css");
+@import url("./pecas/peao.css");
+@import url("./pecas/torre.css");
+@import url("./pecas/cavalo.css");
+@import url("./pecas/bispo.css");
+@import url("./pecas/rainha.css");
+@import url("./pecas/rei.css");
+@import url("./status/marcado.css");

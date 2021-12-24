@@ -1,0 +1,9 @@
+.casa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(75, 71, 47);
+}
+.casa:hover {
+    filter: saturate(4);
+}
