@@ -50,9 +50,9 @@ class Jogo {
         return peca
     }
 
-    removerEventos(elemento) {
+    removerEventos(elemento, ClasseRemovida = "marcado") {
+        elemento.classList.remove(ClasseRemovida)
         let aux = elemento.outerHTML
-        console.log(aux, elemento);
         elemento.outerHTML = aux
     }
 
@@ -62,9 +62,13 @@ class Jogo {
         if (marcador) 
             marcador.removeAttribute("data-marcador")
         this.casas.forEach(linha => {
-            for (let casa of linha) 
-                casa.classList.remove("marcado")
+            for (let casa of linha) {
+                if (casa.classList.contains("marcado")) {
+                    this.removerEventos(casa)
+                }
+            }
         })
+        this.casas = this.obterMatrix()
     }
 
     motarPecas(pos1, pos2, cor = "branco") {
@@ -85,12 +89,12 @@ class Jogo {
     static prepararMovimento() {
         let marcador = document.querySelector("[data-marcador]")
         let marcados = document.querySelectorAll(".marcado")
-        console.log(marcador, marcados);
+        
         marcados.forEach(marcado => {
-            marcado.addEventListener("click", function (params) {
-                if (marcado.classList.contains("marcado"))
-                    console.log(marcado);
+            marcado.addEventListener("click", () => {
+                console.log(marcado);
             })
+            
         })
     }
 
