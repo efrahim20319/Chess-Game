@@ -1,5 +1,5 @@
 let jogo = new Jogo()
-jogo.motarPecas(0,1, "preto")
+jogo.motarPecas(0,3, "preto")
 jogo.motarPecas(7,6)
 
 let jogador1 = new Jogador("Efrahim", "preto")
