@@ -9,9 +9,15 @@ class Peao extends Peca {
         peao.setAttribute("data-marcador","")
         let [x, y] = pos
         try {
-            jogo.casas[x - 2][y].classList.toggle("marcado")
-            jogo.casas[x - 1][y].classList.toggle("marcado")
-            Jogo.prepararMovimento()
+            if(this.primeira_jogada) {
+                jogo.casas[x - 2][y].classList.toggle("marcado")
+                jogo.casas[x - 1][y].classList.toggle("marcado")
+                jogo.prepararMovimento()
+                this.primeira_jogada = false
+            } else {
+                jogo.casas[x - 1][y].classList.toggle("marcado")
+                jogo.prepararMovimento()           
+            }
         } catch (TypeError) {
             
         }

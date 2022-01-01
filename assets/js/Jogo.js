@@ -86,19 +86,20 @@ class Jogo {
     }
 
 
-    static prepararMovimento() {
-        let marcador = document.querySelector("[data-marcador]")
-        let marcados = document.querySelectorAll(".marcado")
+    prepararMovimento() {
+        const marcador = document.querySelector("[data-marcador]")
+        const marcados = document.querySelectorAll(".marcado")
         
         marcados.forEach(marcado => {
             marcado.addEventListener("click", () => {
-                console.log(marcado);
+                this.mover(marcador, marcado, this)
             })
             
         })
     }
 
-    static mover(marcador, marcado) {
-
+    mover(marcador, marcado) {
+        marcado.appendChild(marcador)
+        this.desmarcarTudo()
     }
 }
