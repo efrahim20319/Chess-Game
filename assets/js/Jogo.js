@@ -50,6 +50,20 @@ class Jogo {
         return peca
     }
 
+    casaEstaOcupada(casa) {
+        if (casa.childNodes.length)
+            return true
+        return false
+    }
+
+    marcar(posX, posY) {
+        if (this.casaEstaOcupada(this.casas[posX][posY])) {
+            console.log("Esta ocupado");
+            return
+        }
+        this.casas[posX][posY].classList.add("marcado")
+    }
+
     removerEventos(elemento, ClasseRemovida = "marcado") {
         elemento.classList.remove(ClasseRemovida)
         let aux = elemento.outerHTML
@@ -59,7 +73,7 @@ class Jogo {
 
     desmarcarTudo() {
         let marcador = document.querySelector("[data-marcador]")
-        if (marcador) 
+        if (marcador)
             marcador.removeAttribute("data-marcador")
         this.casas.forEach(linha => {
             for (let casa of linha) {
@@ -89,16 +103,20 @@ class Jogo {
     prepararMovimento() {
         const marcador = document.querySelector("[data-marcador]")
         const marcados = document.querySelectorAll(".marcado")
-        
+
         marcados.forEach(marcado => {
             marcado.addEventListener("click", () => {
                 this.mover(marcador, marcado, this)
             })
-            
+
         })
     }
 
     mover(marcador, marcado) {
+        if (marcador.classList.contains("peao") && (marcador.dataset.primeira_play)) {
+            marcador.dataset.primeira_play = false
+        }
+        console.log(marcador);
         marcado.appendChild(marcador)
         this.desmarcarTudo()
     }

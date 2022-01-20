@@ -11,7 +11,7 @@ jogo.jogador2 = jogador2
 setInterval(() => {
     jogador1.iniciarPeoes(jogo.casas[1])
     jogador2.iniciarPeoes(jogo.casas[6])
-}, 20)
+}, 400)
 
 
 console.log(jogo);

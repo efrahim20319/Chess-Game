@@ -6,23 +6,34 @@ class Peao extends Peca {
 
     mostrarDisponiveis(peao) {
         let pos = jogo.obetrPosicao(peao.parentNode)
-        peao.setAttribute("data-marcador","")
+        peao.setAttribute("data-marcador", "")
         let [x, y] = pos
         try {
-            if(this.primeira_jogada) {
-                jogo.casas[x - 2][y].classList.toggle("marcado")
-                jogo.casas[x - 1][y].classList.toggle("marcado")
-                jogo.prepararMovimento()
-                this.primeira_jogada = false
+            if (peao.classList.contains("preto")) {
+                if (peao.dataset.primeira_play == "true") {
+                    jogo.marcar(x + 2, y)
+                    jogo.marcar(x + 1, y)
+                    jogo.prepararMovimento()
+                } else {
+                    jogo.marcar(x + 1, y)
+                    jogo.prepararMovimento()
+                }
+
             } else {
-                jogo.casas[x - 1][y].classList.toggle("marcado")
-                jogo.prepararMovimento()           
+                if (peao.dataset.primeira_play == "true") {
+                    jogo.marcar(x - 2, y)
+                    jogo.marcar(x - 1, y)
+                    jogo.prepararMovimento()
+                } else {
+                    jogo.marcar(x - 1, y)
+                    jogo.prepararMovimento()
+                }
             }
         } catch (TypeError) {
-            
+
         }
-        
-        
+
+
 
     }
 
