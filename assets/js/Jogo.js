@@ -44,6 +44,20 @@ class Jogo {
         return casasMatrix
     }
 
+    obterCasa(linha, coluna) {
+        try {
+            return this.casas[linha][coluna]
+        } catch (TypeError) {
+            return undefined
+        }
+    }
+
+    corDaPeca(peca) {
+        if(peca.classList.contains("preto"))
+            return "preto"
+        return "branco"
+    }
+
     criarPeca(nome) {
         let peca = document.createElement("span")
         peca.classList.add("peca", nome)
@@ -51,17 +65,46 @@ class Jogo {
     }
 
     casaEstaOcupada(casa) {
+        const peca = casa.childNodes[0]
+        const marcador = document.querySelector("[data-marcador]")
+        if (peca) {
+            const corDaPeca = this.corDaPeca(peca)
+            const corDoMarcador = this.corDaPeca(marcador)
+            if (corDaPeca != corDoMarcador && !(marcador.classList.contains("peao")))
+                return false
+        }
+
         if (casa.childNodes.length)
             return true
         return false
+        
     }
 
-    marcar(posX, posY) {
-        if (this.casaEstaOcupada(this.casas[posX][posY])) {
-            console.log("Esta ocupado");
-            return
+    marcar(casa) {
+        try {
+            if (this.casaEstaOcupada(casa)) {
+                console.log("Esta ocupado");
+                return
+            }
+            casa.classList.add("marcado")
+        } catch (TypeError) {
+            console.log("Nao existe");
         }
-        this.casas[posX][posY].classList.add("marcado")
+    }
+
+    marcarEmSequencia(casas) {
+        for (let i = 0; i < casas.length; i++) {
+            const casa = casas[i];
+            if (this.casaEstaOcupada(casa))
+                return
+            this.marcar(casa)
+        }
+    }
+
+    marcarGrupo(casas) {
+        for (const casa of casas) {
+            this.marcar(casa)
+        }
     }
 
     removerEventos(elemento, ClasseRemovida = "marcado") {
@@ -119,5 +162,7 @@ class Jogo {
         console.log(marcador);
         marcado.appendChild(marcador)
         this.desmarcarTudo()
+        this._jodador1.atualizar()
+        this._jodador2.atualizar()
     }
 }

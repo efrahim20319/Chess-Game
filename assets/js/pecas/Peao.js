@@ -10,22 +10,26 @@ class Peao extends Peca {
         let [x, y] = pos
         try {
             if (peao.classList.contains("preto")) {
+                let casa1 = jogo.casas[x + 1][y]
+                let casa2 = jogo.casas[x + 2][y]
+                let casasAhMarcar = [casa1, casa2]
                 if (peao.dataset.primeira_play == "true") {
-                    jogo.marcar(x + 2, y)
-                    jogo.marcar(x + 1, y)
+                    jogo.marcarEmSequencia(casasAhMarcar)
                     jogo.prepararMovimento()
                 } else {
-                    jogo.marcar(x + 1, y)
+                    jogo.marcar(casa1)
                     jogo.prepararMovimento()
                 }
 
             } else {
+                let casa1 = jogo.casas[x - 1][y]
+                let casa2 = jogo.casas[x - 2][y]
+                let casasAhMarcar = [casa1, casa2]
                 if (peao.dataset.primeira_play == "true") {
-                    jogo.marcar(x - 2, y)
-                    jogo.marcar(x - 1, y)
+                    jogo.marcarEmSequencia(casasAhMarcar)
                     jogo.prepararMovimento()
                 } else {
-                    jogo.marcar(x - 1, y)
+                    jogo.marcar(casa1)
                     jogo.prepararMovimento()
                 }
             }

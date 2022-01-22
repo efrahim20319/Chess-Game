@@ -8,10 +8,6 @@ let jogador2 = new Jogador("Nsimba", "branco")
 jogo.jogador1 = jogador1
 jogo.jogador2 = jogador2
 
-setInterval(() => {
-    jogador1.iniciarPeoes(jogo.casas[1])
-    jogador2.iniciarPeoes(jogo.casas[6])
-}, 400)
+jogador1.atualizar()
+jogador2.atualizar()
 
-
-console.log(jogo);
