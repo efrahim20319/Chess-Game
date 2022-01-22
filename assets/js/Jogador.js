@@ -37,7 +37,6 @@ class Jogador {
             cavalos[i].addEventListener("click",  function marcar() {
                 jogo.desmarcarTudo()
                 inst.mostrarDisponiveis(this)
-                console.log(inst);
             })
 
         }

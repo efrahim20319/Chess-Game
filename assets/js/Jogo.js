@@ -80,9 +80,9 @@ class Jogo {
         
     }
 
-    marcar(casa) {
+    marcar(casa, forceOption = false) {
         try {
-            if (this.casaEstaOcupada(casa)) {
+            if (this.casaEstaOcupada(casa) && !(forceOption)) {
                 console.log("Esta ocupado");
                 return
             }
@@ -112,7 +112,6 @@ class Jogo {
         let aux = elemento.outerHTML
         elemento.outerHTML = aux
     }
-
 
     desmarcarTudo() {
         let marcador = document.querySelector("[data-marcador]")
@@ -149,7 +148,7 @@ class Jogo {
 
         marcados.forEach(marcado => {
             marcado.addEventListener("click", () => {
-                this.mover(marcador, marcado, this)
+                this.mover(marcador, marcado)
             })
 
         })
@@ -159,10 +158,10 @@ class Jogo {
         if (marcador.classList.contains("peao") && (marcador.dataset.primeira_play)) {
             marcador.dataset.primeira_play = false
         }
-        console.log(marcador);
         marcado.appendChild(marcador)
         this.desmarcarTudo()
         this._jodador1.atualizar()
         this._jodador2.atualizar()
+        console.log(marcador);
     }
 }
