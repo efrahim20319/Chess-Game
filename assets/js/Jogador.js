@@ -1,4 +1,7 @@
-class Jogador {
+import { Peao } from "./pecas/Peao.js"
+import { Cavalo } from "./pecas/Cavalo.js"
+
+export class Jogador {
     constructor(nome, cor) {
         this.nome = nome
         this.corDasPecas = cor
@@ -20,12 +23,11 @@ class Jogador {
                 linha[i].dataset.primeira_play = true
             }
             this.peoes[i].elemento = linha[i]
-            let inst = this.peoes[i]
+            let inst_peao = this.peoes[i]
             linha[i].addEventListener("click", function marcar() {
-                jogo.desmarcarTudo()
-                inst.mostrarDisponiveis(this)
+                inst_peao.mostrarDisponiveis(this)
             })
-        }
+        }        
     }
 
     iniciarCavalos() {
@@ -33,12 +35,10 @@ class Jogador {
         for (let i = 0; i < cavalos.length; i++) {
             this.cavalos[i] = new Cavalo()
             this.cavalos[i].elemento = cavalos[i]
-            let inst = this.cavalos[i]
+            let inst_cavalo = this.cavalos[i]
             cavalos[i].addEventListener("click",  function marcar() {
-                jogo.desmarcarTudo()
-                inst.mostrarDisponiveis(this)
+                inst_cavalo.mostrarDisponiveis(this)
             })
-
         }
     }
 }

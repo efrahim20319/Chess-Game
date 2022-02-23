@@ -1,13 +1,15 @@
-let jogo = new Jogo()
-jogo.motarPecas(0,1, "preto")
-jogo.motarPecas(7,6)
+import { Jogo } from "./Jogo.js"
+import { Jogador } from "./Jogador.js"
 
-let jogador1 = new Jogador("Efrahim", "preto")
-let jogador2 = new Jogador("Nsimba", "branco")
+const jogador1 = new Jogador("Efrahim", "preto")
+const jogador2 = new Jogador("Nsimba", "branco")
 
-jogo.jogador1 = jogador1
-jogo.jogador2 = jogador2
+Jogo.init()
+
+
+Jogo.motarPecas(0, 1, "preto")
+Jogo.motarPecas(7, 6)
+
 
 jogador1.atualizar()
 jogador2.atualizar()
-

@@ -1,36 +1,38 @@
-class Jogo {
-    constructor() {
-        this.casas = this.obterMatrix()
-        this._jodador1 = null
-        this._jodador2 = null
+import { Jogador } from "./Jogador.js"
+
+export class Jogo {
+    static init() {
+        Jogo.casas = Jogo.obterMatrix()
+        Jogo._jogador2 = new Jogador("Efrahim", "branco")
+        Jogo._jogador1 = new Jogador("Tamaku", "preto")
     }
 
     set jogador1(jogador) {
-        this._jodador1 = jogador
+        Jogo._jogador1 = jogador
     }
 
     get jogador1() {
-        return this._jodador1
+        return Jogo._jogador1
     }
 
     set jogador2(jogador) {
-        this._jodador2 = jogador
+        Jogo._jogador2 = jogador
     }
 
     get jogador2() {
-        return this._jodador2
+        return Jogo._jogador2
     }
 
-    obetrPosicao(elemento) {
+    static obetrPosicao(elemento) {
         for (let i = 0; i < 8; i++) {
             for (let j = 0; j < 8; j++) {
-                if (this.casas[i][j] == elemento)
+                if (Jogo.casas[i][j] == elemento)
                     return [i, j]
             }
         }
     }
 
-    obterMatrix() {
+    static obterMatrix() {
         let casas = document.querySelectorAll(".casa")
         let casasMatrix = new Array(8)
         for (let i = 0; i < 8; i++) {
@@ -44,96 +46,107 @@ class Jogo {
         return casasMatrix
     }
 
-    obterCasa(linha, coluna) {
+    static obterCasa(linha, coluna) {
         try {
-            return this.casas[linha][coluna]
+            return Jogo.casas[linha][coluna]
         } catch (TypeError) {
             return undefined
         }
     }
 
-    corDaPeca(peca) {
-        if(peca.classList.contains("preto"))
+    static corDaPeca(peca) {
+        if (peca.classList.contains("preto"))
             return "preto"
         return "branco"
     }
 
-    criarPeca(nome) {
+    static corEhDiferente(peca1, peca2) {
+        const corPeca1 = Jogo.corDaPeca(peca1)
+        const corPeca2 = Jogo.corDaPeca(peca2)
+        console.log(corPeca1, corPeca2);
+        return corPeca1 != corPeca2
+    }
+
+    static criarPeca(nome) {
         let peca = document.createElement("span")
         peca.classList.add("peca", nome)
         return peca
     }
 
-    casaEstaOcupada(casa) {
-        const peca = casa.childNodes[0]
-        const marcador = document.querySelector("[data-marcador]")
-        if (peca) {
-            const corDaPeca = this.corDaPeca(peca)
-            const corDoMarcador = this.corDaPeca(marcador)
-            if (corDaPeca != corDoMarcador && !(marcador.classList.contains("peao")))
-                return false
+    static casaEstaOcupada(casa) {
+        try {
+            const peca = casa.childNodes[0]
+            const marcador = document.querySelector("[data-marcador]")
+            if (peca) {
+                const corDaPeca = Jogo.corDaPeca(peca)
+                const corDoMarcador = Jogo.corDaPeca(marcador)
+                if (corDaPeca != corDoMarcador && !(marcador.classList.contains("peao")))
+                    return false
+            }
+
+            if (casa.childNodes.length)
+                return true
+            return false
+        } catch (TypeError) {
+            console.log("Nao existe casa a ocupar");
         }
 
-        if (casa.childNodes.length)
-            return true
-        return false
-        
     }
 
-    marcar(casa, forceOption = false) {
+    static marcar(casa, forceOption = false) {
         try {
-            if (this.casaEstaOcupada(casa) && !(forceOption)) {
+            if (Jogo.casaEstaOcupada(casa) && !(forceOption)) {
                 console.log("Esta ocupado");
                 return
             }
             casa.classList.add("marcado")
         } catch (TypeError) {
-            console.log("Nao existe");
+            console.log("Nao existe casa a marcar");
         }
     }
 
-    marcarEmSequencia(casas) {
+    static marcarEmSequencia(casas) {
         for (let i = 0; i < casas.length; i++) {
             const casa = casas[i];
-            if (this.casaEstaOcupada(casa))
+            if (Jogo.casaEstaOcupada(casa))
                 return
-            this.marcar(casa)
+            Jogo.marcar(casa)
         }
     }
 
-    marcarGrupo(casas) {
+    static marcarGrupo(casas) {
         for (const casa of casas) {
-            this.marcar(casa)
+            Jogo.marcar(casa)
         }
     }
 
-    removerEventos(elemento, ClasseRemovida = "marcado") {
+    static removerEventos(elemento, ClasseRemovida = "marcado") {
         elemento.classList.remove(ClasseRemovida)
         let aux = elemento.outerHTML
         elemento.outerHTML = aux
     }
 
-    desmarcarTudo() {
+    static desmarcarTudo() {
         let marcador = document.querySelector("[data-marcador]")
         if (marcador)
             marcador.removeAttribute("data-marcador")
-        this.casas.forEach(linha => {
+        Jogo.casas.forEach(linha => {
             for (let casa of linha) {
                 if (casa.classList.contains("marcado")) {
-                    this.removerEventos(casa)
+                    Jogo.removerEventos(casa)
                 }
             }
         })
-        this.casas = this.obterMatrix()
+        Jogo.casas = Jogo.obterMatrix()
     }
 
-    motarPecas(pos1, pos2, cor = "branco") {
+    static motarPecas(pos1, pos2, cor = "branco") {
         let ordem = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torre']
-        let linha_1 = this.casas[pos1]
-        let linha_2 = this.casas[pos2]
+        let linha_1 = Jogo.casas[pos1]
+        let linha_2 = Jogo.casas[pos2]
         for (let i = 0; i < linha_1.length; i++) {
-            let peao = this.criarPeca("peao")
-            let item_linha1 = this.criarPeca(ordem[i])
+            let peao = Jogo.criarPeca("peao")
+            let item_linha1 = Jogo.criarPeca(ordem[i])
             item_linha1.classList.add(cor)
             peao.classList.add(cor)
             linha_1[i].appendChild(item_linha1)
@@ -142,26 +155,25 @@ class Jogo {
     }
 
 
-    prepararMovimento() {
+    static prepararMovimento() {
         const marcador = document.querySelector("[data-marcador]")
         const marcados = document.querySelectorAll(".marcado")
 
         marcados.forEach(marcado => {
             marcado.addEventListener("click", () => {
-                this.mover(marcador, marcado)
+                Jogo.mover(marcador, marcado)
             })
 
         })
     }
 
-    mover(marcador, marcado) {
+    static mover(marcador, marcado) {
         if (marcador.classList.contains("peao") && (marcador.dataset.primeira_play)) {
             marcador.dataset.primeira_play = false
         }
         marcado.appendChild(marcador)
-        this.desmarcarTudo()
-        this._jodador1.atualizar()
-        this._jodador2.atualizar()
-        console.log(marcador);
+        Jogo.desmarcarTudo()
+        Jogo._jogador1.atualizar()
+        Jogo._jogador2.atualizar()
     }
 }
