@@ -7,9 +7,8 @@ export class Cavalo extends Peca {
 
     mostrarDisponiveis(cavalo) {
         Jogo.desmarcarTudo()
-        const pos = Jogo.obetrPosicao(cavalo.parentNode)
         cavalo.setAttribute("data-marcador", "")
-        const [linha, coluna] = pos
+        const [linha, coluna] = Jogo.obetrPosicao(cavalo.parentNode)
         let casasAhMarcar = []
 
         const casa1 = Jogo.obterCasa(linha - 2, coluna - 1)

@@ -1,3 +1,5 @@
+import { Jogo } from "../Jogo.js";
+
 export class Peca {
     constructor() {
         if (this.constructor == Peca) {
@@ -9,5 +11,25 @@ export class Peca {
     mostrarDisponiveis() {
         
     }
+
+    marcarEmSequencia(casas) {
+		for (let i = 0; i < casas.length; i++) {
+			const casa = casas[i];
+			if (Jogo.casaEstaOcupada(casa)) {
+				if (
+					Jogo.corEhDiferente(
+						this.elemento,
+						casa.childNodes[0]
+					)
+				) {
+					// Pode ser simplificado mas eu prefiro deixar assim
+					Jogo.marcar(casa, true);
+					return;
+				}
+				return;
+			}
+			Jogo.marcar(casa);
+		}
+	}
 
 }
