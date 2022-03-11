@@ -1,6 +1,7 @@
 import { Peao } from "./pecas/Peao.js";
 import { Cavalo } from "./pecas/Cavalo.js";
 import { Torre } from "./pecas/Torre.js";
+import { Bispo } from "./pecas/Bispo.js";
 
 export class Jogador {
 	constructor(nome, cor) {
@@ -10,12 +11,14 @@ export class Jogador {
 		this.peoes = new Array(8);
 		this.cavalos = new Array(2);
 		this.torres = new Array(2);
+		this.bispos = new Array(2)
 	}
 
 	atualizar() {
 		this.iniciarPeoes();
 		this.iniciarCavalos();
 		this.iniciarTorres();
+		this.iniciarBispos()
 	}
 
 	iniciarPeoes() {
@@ -56,6 +59,18 @@ export class Jogador {
 			const torre = this.torres[i];
 			torres[i].addEventListener("click", function () {
 				torre.mostrarDisponiveis(this);
+			});
+		}
+	}
+
+	iniciarBispos() {
+		const bispos = document.querySelectorAll(`.bispo.${this.corDasPecas}`);
+		for (let i = 0; i < bispos.length; i++) {
+			this.bispos[i] = new Bispo();
+			this.bispos[i].elemento = bispos[i];
+			const bispo = this.bispos[i];
+			bispos[i].addEventListener("click", function () {
+				bispo.mostrarDisponiveis(this);
 			});
 		}
 	}

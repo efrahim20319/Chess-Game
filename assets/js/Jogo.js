@@ -80,7 +80,8 @@ export class Jogo {
 				if (
 					corDaPeca != corDoMarcador &&
 					!marcador.classList.contains("peao") &&
-					!marcador.classList.contains("torre")
+					!marcador.classList.contains("torre") &&
+					!marcador.classList.contains("bispo")
 				)
 					return false;
 			}
