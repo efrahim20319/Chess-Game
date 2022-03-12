@@ -2,6 +2,7 @@ import { Peao } from "./pecas/Peao.js";
 import { Cavalo } from "./pecas/Cavalo.js";
 import { Torre } from "./pecas/Torre.js";
 import { Bispo } from "./pecas/Bispo.js";
+import { Rainha } from "./pecas/Rainha.js";
 
 export class Jogador {
 	constructor(nome, cor) {
@@ -12,6 +13,7 @@ export class Jogador {
 		this.cavalos = new Array(2);
 		this.torres = new Array(2);
 		this.bispos = new Array(2)
+		this.rainha = new Array() // É possivel ter mais de uma rainha no jogo, por isso é um array
 	}
 
 	atualizar() {
@@ -19,6 +21,7 @@ export class Jogador {
 		this.iniciarCavalos();
 		this.iniciarTorres();
 		this.iniciarBispos()
+		this.iniciarRainhas()
 	}
 
 	iniciarPeoes() {
@@ -71,6 +74,18 @@ export class Jogador {
 			const bispo = this.bispos[i];
 			bispos[i].addEventListener("click", function () {
 				bispo.mostrarDisponiveis(this);
+			});
+		}
+	}
+
+	iniciarRainhas() {
+		const rainhas = document.querySelectorAll(`.rainha.${this.corDasPecas}`);
+		for (let i = 0; i < rainhas.length; i++) {
+			this.rainha[i] = new Rainha();
+			this.rainha[i].elemento = rainhas[i];
+			const rainha = this.rainha[i];
+			rainhas[i].addEventListener("click", function () {
+				rainha.mostrarDisponiveis(this);
 			});
 		}
 	}

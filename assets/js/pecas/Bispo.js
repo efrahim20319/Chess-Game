@@ -6,40 +6,6 @@ export class Bispo extends Peca {
 		super();
 	}
 
-	casas_topo_direita(linha, coluna) {
-		let casas = [];
-		let iteracoes = 8 - coluna;
-		for (linha--, coluna++; iteracoes > 0; linha--, coluna++, iteracoes--) {
-			casas.push(Jogo.obterCasa(linha, coluna));
-		}
-		return casas;
-	}
-
-	casas_topo_esquerda(linha, coluna) {
-		let casas = [];
-		for (linha--, coluna--; coluna >= 0; linha--, coluna--) {
-			casas.push(Jogo.obterCasa(linha, coluna));
-		}
-		return casas;
-	}
-
-	casas_baixo_direita(linha, coluna) {
-		let casas = [];
-        let iteracoes = 8 - coluna
-		for (linha++, coluna++; iteracoes > 0; linha++, coluna++, iteracoes--) {
-			casas.push(Jogo.obterCasa(linha, coluna));
-		}
-		return casas;
-	}
-
-	casas_baixo_esquerda(linha, coluna) {
-		let casas = [];
-		for (linha++, coluna--; coluna >= 0; linha++, coluna--) {
-			casas.push(Jogo.obterCasa(linha, coluna));
-		}
-		return casas;
-	}
-
 	mostrarDisponiveis(bispo) {
 		this.elemento = bispo;
 		Jogo.desmarcarTudo();
