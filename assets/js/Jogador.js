@@ -3,6 +3,7 @@ import { Cavalo } from "./pecas/Cavalo.js";
 import { Torre } from "./pecas/Torre.js";
 import { Bispo } from "./pecas/Bispo.js";
 import { Rainha } from "./pecas/Rainha.js";
+import { Rei } from "./pecas/Rei.js";
 
 export class Jogador {
 	constructor(nome, cor) {
@@ -12,16 +13,18 @@ export class Jogador {
 		this.peoes = new Array(8);
 		this.cavalos = new Array(2);
 		this.torres = new Array(2);
-		this.bispos = new Array(2)
-		this.rainha = new Array() // É possivel ter mais de uma rainha no jogo, por isso é um array
+		this.bispos = new Array(2);
+		this.rainha = new Array(); // É possivel ter mais de uma rainha no jogo, por isso é um array
+		this.rei = new Array();
 	}
 
 	atualizar() {
 		this.iniciarPeoes();
 		this.iniciarCavalos();
 		this.iniciarTorres();
-		this.iniciarBispos()
-		this.iniciarRainhas()
+		this.iniciarBispos();
+		this.iniciarRainhas();
+		this.iniciarRei();
 	}
 
 	iniciarPeoes() {
@@ -53,7 +56,7 @@ export class Jogador {
 			});
 		}
 	}
-    
+
 	iniciarTorres() {
 		const torres = document.querySelectorAll(`.torre.${this.corDasPecas}`);
 		for (let i = 0; i < torres.length; i++) {
@@ -79,13 +82,28 @@ export class Jogador {
 	}
 
 	iniciarRainhas() {
-		const rainhas = document.querySelectorAll(`.rainha.${this.corDasPecas}`);
+		const rainhas = document.querySelectorAll(
+			`.rainha.${this.corDasPecas}`
+		);
 		for (let i = 0; i < rainhas.length; i++) {
 			this.rainha[i] = new Rainha();
 			this.rainha[i].elemento = rainhas[i];
 			const rainha = this.rainha[i];
 			rainhas[i].addEventListener("click", function () {
 				rainha.mostrarDisponiveis(this);
+			});
+		}
+	}
+
+	iniciarRei() {
+		//Refatorar isso, esta muito mal feito, mas deixo porque esta a funcionar
+		const reis = document.querySelectorAll(`.rei.${this.corDasPecas}`);
+		for (let i = 0; i < reis.length; i++) {
+			this.rei[i] = new Rei();
+			this.rei[i].elemento = reis[i];
+			const rei = this.rei[i];
+			reis[i].addEventListener("click", function () {
+				rei.mostrarDisponiveis();
 			});
 		}
 	}
