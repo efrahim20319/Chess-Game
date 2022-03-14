@@ -24,6 +24,5 @@ export class Cavalo extends Peca {
 
         Jogo.marcarGrupo(casasAhMarcar)
         Jogo.prepararMovimento()
-
     }
 }

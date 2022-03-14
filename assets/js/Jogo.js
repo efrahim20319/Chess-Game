@@ -103,7 +103,7 @@ export class Jogo {
 			if (casa.childNodes.length) return true;
 			return false;
 		} catch (TypeError) {
-			console.log("ocupado:", casa);
+			// console.log("ocupado:", casa);
 		}
 	}
 
@@ -115,12 +115,12 @@ export class Jogo {
 	static marcar(casa, forceOption = false) {
 		try {
 			if (Jogo.casaEstaOcupada(casa) && !forceOption) {
-				console.log("Esta ocupado");
+				// console.log("Esta ocupado");
 				return;
 			}
 			casa.classList.add("marcado");
 		} catch (TypeError) {
-			console.log("Erro ao marcar");
+			// console.log("Erro ao marcar");
 		}
 	}
 
@@ -203,7 +203,9 @@ export class Jogo {
 		) {
 			marcador.dataset.primeira_play = false;
 		}
-		if (Jogo.casaEstaOcupada(marcado)) {
+		console.log(marcador, marcado);
+		if (Jogo.PossuiPeca(marcado)) {
+			console.log("Comer:", marcador, marcado);
 			Jogo.comer(marcado)
 		}
 		marcado.appendChild(marcador);
