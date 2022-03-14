@@ -45,6 +45,19 @@ export class Jogo {
 		return casasMatrix;
 	}
 
+	static pintarTabuleiro() {
+		let alter = false;
+		Jogo.casas.forEach((v, i, a) => {
+			v.forEach((v, i, a) => {
+				if (alter) {
+					v.classList.add("casaPreta");
+				}
+				alter = !alter
+			});
+			alter = !alter
+		});
+	}
+
 	static obterCasa(linha, coluna) {
 		try {
 			return Jogo.casas[linha][coluna];
@@ -136,8 +149,8 @@ export class Jogo {
 		if (marcador) marcador.removeAttribute("data-marcador");
 		Jogo.casas.forEach((linha) => {
 			for (let casa of linha) {
-				if ( casa.classList.contains("marcado") ) { 	
-					Jogo.removerEventos(casa, "marcado"); 
+				if (casa.classList.contains("marcado")) {
+					Jogo.removerEventos(casa, "marcado");
 				}
 			}
 		});
