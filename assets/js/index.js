@@ -4,7 +4,7 @@ import { Jogador } from "./Jogador.js"
 const jogador1 = new Jogador("Efrahim", "preto")
 const jogador2 = new Jogador("Nsimba", "branco")
 
-Jogo.init()
+Jogo.init(jogador1, jogador2)
 Jogo.pintarTabuleiro()
 
 

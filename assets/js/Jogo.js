@@ -1,10 +1,10 @@
 import { Jogador } from "./Jogador.js";
 
 export class Jogo {
-	static init() {
+	static init(jogador1, jogador2) {
 		Jogo.casas = Jogo.obterMatrix();
-		Jogo._jogador2 = new Jogador("Efrahim", "branco");
-		Jogo._jogador1 = new Jogador("Tamaku", "preto");
+		Jogo._jogador2 = jogador1
+		Jogo._jogador1 = jogador2
 	}
 
 	set jogador1(jogador) {
@@ -191,6 +191,11 @@ export class Jogo {
 		});
 	}
 
+	static trocarVez() {
+		Jogo._jogador1.vez = !Jogo._jogador1.vez
+		Jogo._jogador2.vez = !Jogo._jogador2.vez
+	}
+
 	static mover(marcador, marcado) {
 		if (
 			marcador.classList.contains("peao") &&
@@ -198,10 +203,17 @@ export class Jogo {
 		) {
 			marcador.dataset.primeira_play = false;
 		}
-
+		if (Jogo.casaEstaOcupada(marcado)) {
+			Jogo.comer(marcado)
+		}
 		marcado.appendChild(marcador);
 		Jogo.desmarcarTudo();
+		Jogo.trocarVez()
 		Jogo._jogador1.atualizar();
 		Jogo._jogador2.atualizar();
+	}
+
+	static comer(marcado) {
+		marcado.innerHTML = ""
 	}
 }

@@ -6,32 +6,34 @@ export class Peao extends Peca {
         this.primeira_jogada = true
     }
 
-    // pretoPodeMatar(linha, coluna, marcador) {
-    //     const [casa1, casa2] = [Jogo.obterCasa(linha + 1, coluna - 1), Jogo.obterCasa(linha + 1, coluna + 1)]
-    //     if (Jogo.casaEstaOcupada(casa1)) {
-    //         const casa = Jogo.obterCasa(linha + 1, coluna - 1)
-    //         if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
-    //             Jogo.marcar(casa, true)
-    //     }
-    //     if (Jogo.casaEstaOcupada(casa2)) {
-    //         const casa = Jogo.obterCasa(linha + 1, coluna + 1)
-    //         if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
-    //             Jogo.marcar(casa, true)
-    //     }
-    // }
-    // brancoPodeMatar(linha, coluna, marcador) {
-    //     const [casa1, casa2] = [Jogo.obterCasa(linha - 1, coluna - 1), Jogo.obterCasa(linha - 1, coluna + 1)]
-    //     if (Jogo.casaEstaOcupada(casa1)) {
-    //         const casa = Jogo.obterCasa(linha - 1, coluna - 1)
-    //         if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
-    //             Jogo.marcar(casa, true)
-    //     }
-    //     if (Jogo.casaEstaOcupada(casa2)) {
-    //         const casa = Jogo.obterCasa(linha - 1, coluna + 1)
-    //         if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
-    //             Jogo.marcar(casa, true)
-    //     }
-    // }
+    pretoPodeMatar(linha, coluna, marcador) {
+        const [casa1, casa2] = [Jogo.obterCasa(linha + 1, coluna - 1), Jogo.obterCasa(linha + 1, coluna + 1)]
+        console.log("Cassa", casa1);
+        if (Jogo.casaEstaOcupada(casa1)) {
+            const casa = Jogo.obterCasa(linha + 1, coluna - 1)
+            if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
+                Jogo.marcar(casa, true)
+        }
+        if (Jogo.casaEstaOcupada(casa2)) {
+            const casa = Jogo.obterCasa(linha + 1, coluna + 1)
+            if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
+                Jogo.marcar(casa, true)
+        }
+    }
+
+    brancoPodeMatar(linha, coluna, marcador) {
+        const [casa1, casa2] = [Jogo.obterCasa(linha - 1, coluna - 1), Jogo.obterCasa(linha - 1, coluna + 1)]
+        if (Jogo.casaEstaOcupada(casa1)) {
+            const casa = Jogo.obterCasa(linha - 1, coluna - 1)
+            if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
+                Jogo.marcar(casa, true)
+        }
+        if (Jogo.casaEstaOcupada(casa2)) {
+            const casa = Jogo.obterCasa(linha - 1, coluna + 1)
+            if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
+                Jogo.marcar(casa, true)
+        }
+    }
 
 
     mostrarDisponiveis(peao) {
@@ -43,6 +45,7 @@ export class Peao extends Peca {
             if (peao.classList.contains("preto")) {
                 const casa1 = Jogo.obterCasa(linha + 1, coluna)
                 const casa2 = Jogo.obterCasa(linha + 2, coluna)
+                this.pretoPodeMatar(linha, coluna, peao)
                 const casasAhMarcar = [casa1, casa2]
                 if (peao.dataset.primeira_play == "true") {
                     Jogo.marcarEmSequencia(casasAhMarcar)
@@ -55,6 +58,7 @@ export class Peao extends Peca {
             } else {
                 const casa1 = Jogo.obterCasa(linha - 1, coluna)
                 const casa2 = Jogo.obterCasa(linha - 2, coluna)
+                this.brancoPodeMatar(linha, coluna, peao)
                 const casasAhMarcar = [casa1, casa2]
                 if (peao.dataset.primeira_play == "true") {
                     Jogo.marcarEmSequencia(casasAhMarcar)
