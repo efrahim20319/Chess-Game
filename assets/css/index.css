@@ -15,3 +15,5 @@
 @import url("./pecas/rainha.css");
 @import url("./pecas/rei.css");
 @import url("./status/marcado.css");
+@import url("./status/selecionado.css");
+@import url("./status/alvo.css");

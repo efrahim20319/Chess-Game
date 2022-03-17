@@ -118,6 +118,9 @@ export class Jogo {
 				// console.log("Esta ocupado");
 				return;
 			}
+			if (Jogo.PossuiPeca(casa)) {
+				casa.classList.add("alvo")
+			}
 			casa.classList.add("marcado");
 		} catch (TypeError) {
 			// console.log("Erro ao marcar");
@@ -149,6 +152,7 @@ export class Jogo {
 		if (marcador) marcador.removeAttribute("data-marcador");
 		Jogo.casas.forEach((linha) => {
 			for (let casa of linha) {
+				casa.classList.remove("alvo")
 				if (casa.classList.contains("marcado")) {
 					Jogo.removerEventos(casa, "marcado");
 				}
@@ -203,9 +207,7 @@ export class Jogo {
 		) {
 			marcador.dataset.primeira_play = false;
 		}
-		console.log(marcador, marcado);
 		if (Jogo.PossuiPeca(marcado)) {
-			console.log("Comer:", marcador, marcado);
 			Jogo.comer(marcado)
 		}
 		marcado.appendChild(marcador);
