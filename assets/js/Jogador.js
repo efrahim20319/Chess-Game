@@ -12,10 +12,10 @@ export class Jogador {
 		this.nome = nome;
 		this.corDasPecas = cor;
 		this.n_pecas = 16;
-		this.peoes = new Array(8);
-		this.cavalos = new Array(2);
-		this.torres = new Array(2);
-		this.bispos = new Array(2);
+		this.peoes = new Array();
+		this.cavalos = new Array();
+		this.torres = new Array();
+		this.bispos = new Array();
 		this.rainha = new Array(); // É possivel ter mais de uma rainha no jogo, por isso é um array
 		this.rei = new Array();
 	}

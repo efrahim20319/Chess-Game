@@ -17,3 +17,6 @@
 @import url("./status/marcado.css");
 @import url("./status/selecionado.css");
 @import url("./status/alvo.css");
+@import url("../css/conteudo/promoter.css");
+@import url("../css/conteudo/promoter-option.css");
+@import url("../css/status/hidden.css");

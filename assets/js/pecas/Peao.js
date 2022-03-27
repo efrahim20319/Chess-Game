@@ -21,14 +21,12 @@ export class Peao extends Peca {
     brancoPodeMatar(linha, coluna, marcador) {
         const [casa1, casa2] = [Jogo.obterCasa(linha - 1, coluna - 1), Jogo.obterCasa(linha - 1, coluna + 1)]
         if (Jogo.casaEstaOcupada(casa1)) {
-            const casa = Jogo.obterCasa(linha - 1, coluna - 1)
-            if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
-                Jogo.marcar(casa, true)
+            if (Jogo.corEhDiferente(marcador, casa1.childNodes[0]))
+                Jogo.marcar(casa1, true)
         }
         if (Jogo.casaEstaOcupada(casa2)) {
-            const casa = Jogo.obterCasa(linha - 1, coluna + 1)
-            if (Jogo.corEhDiferente(marcador, casa.childNodes[0]))
-                Jogo.marcar(casa, true)
+            if (Jogo.corEhDiferente(marcador, casa2.childNodes[0]))
+                Jogo.marcar(casa2, true)
         }
     }
 

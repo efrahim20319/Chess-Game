@@ -1,4 +1,7 @@
 .conteudo {
-    margin: auto;
-    /* padding: 2.5em; */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: .5em;
+    padding-top: 2.5em;
 }

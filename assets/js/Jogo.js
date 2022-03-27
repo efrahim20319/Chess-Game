@@ -3,8 +3,8 @@ import { Jogador } from "./Jogador.js";
 export class Jogo {
 	static init(jogador1, jogador2) {
 		Jogo.casas = Jogo.obterMatrix();
-		Jogo._jogador2 = jogador1
-		Jogo._jogador1 = jogador2
+		Jogo._jogador2 = jogador1;
+		Jogo._jogador1 = jogador2;
 	}
 
 	set jogador1(jogador) {
@@ -46,15 +46,13 @@ export class Jogo {
 	}
 
 	static pintarTabuleiro() {
-		let alter = false;
-		Jogo.casas.forEach((v, i, a) => {
-			v.forEach((v, i, a) => {
-				if (alter) {
-					v.classList.add("casaPreta");
-				}
-				alter = !alter
+		// Não consegui pintar com CSS, kkk, estas a vontade para faze-lo
+		let alter = true;
+		Jogo.casas.forEach((linha) => {
+			linha.forEach((casa) => {
+				if ((alter = !alter)) casa.classList.add("casaPreta");
 			});
-			alter = !alter
+			alter = !alter;
 		});
 	}
 
@@ -118,9 +116,8 @@ export class Jogo {
 				// console.log("Esta ocupado");
 				return;
 			}
-			if (Jogo.PossuiPeca(casa)) {
-				casa.classList.add("alvo")
-			}
+			if (Jogo.PossuiPeca(casa)) casa.classList.add("alvo");
+
 			casa.classList.add("marcado");
 		} catch (TypeError) {
 			// console.log("Erro ao marcar");
@@ -152,7 +149,8 @@ export class Jogo {
 		if (marcador) marcador.removeAttribute("data-marcador");
 		Jogo.casas.forEach((linha) => {
 			for (let casa of linha) {
-				casa.classList.remove("alvo")
+				casa.classList.remove("alvo");
+				casa.classList.remove("selecionado");
 				if (casa.classList.contains("marcado")) {
 					Jogo.removerEventos(casa, "marcado");
 				}
@@ -196,28 +194,60 @@ export class Jogo {
 	}
 
 	static trocarVez() {
-		Jogo._jogador1.vez = !Jogo._jogador1.vez
-		Jogo._jogador2.vez = !Jogo._jogador2.vez
+		Jogo._jogador1.vez = !Jogo._jogador1.vez;
+		Jogo._jogador2.vez = !Jogo._jogador2.vez;
+	}
+
+	static pausar() {
+		Jogo._jogador1.vez = false;
+		Jogo._jogador2.vez = false;
+	}
+
+	static promover(peao) {
+		const promoter = document.querySelector(".promoter")
+		peao.dataset.promote = ""
+		promoter.classList.toggle("hidden")
+		const options = document.querySelectorAll(".promoter__option")
+		for (const option of options) {
+			option.addEventListener("click", () => {
+				const peao = document.querySelector("[data-promote]")
+				const nomeDaPeca = option.textContent.toLowerCase()
+				const corDaPeca = Jogo.corDaPeca(peao)
+				const elementoPai = peao.parentNode
+				peao.remove()
+				const pecaCriada = Jogo.criarPeca(nomeDaPeca)
+				pecaCriada.classList.add("peca", `${corDaPeca}`)
+				elementoPai.appendChild(pecaCriada)
+				promoter.classList.toggle("hidden")
+			})
+		}
+
 	}
 
 	static mover(marcador, marcado) {
-		if (
-			marcador.classList.contains("peao") &&
-			marcador.dataset.primeira_play
-		) {
-			marcador.dataset.primeira_play = false;
+		const linha = Jogo.obetrPosicao(marcado)[0];
+		if (marcador.classList.contains("peao")) {
+			if (marcador.dataset.primeira_play) {
+				marcador.dataset.primeira_play = false;
+			}
+			if (Jogo.corDaPeca(marcador) == "branco" && linha == 0) {
+				Jogo.promover(marcador)
+			}
+			if (Jogo.corDaPeca(marcador) == "preto" && linha == 7) {
+				Jogo.promover(marcador);
+			}
 		}
 		if (Jogo.PossuiPeca(marcado)) {
-			Jogo.comer(marcado)
+			Jogo.comer(marcado);
 		}
 		marcado.appendChild(marcador);
 		Jogo.desmarcarTudo();
-		Jogo.trocarVez()
+		Jogo.trocarVez();
 		Jogo._jogador1.atualizar();
 		Jogo._jogador2.atualizar();
 	}
 
 	static comer(marcado) {
-		marcado.innerHTML = ""
+		marcado.innerHTML = "";
 	}
 }

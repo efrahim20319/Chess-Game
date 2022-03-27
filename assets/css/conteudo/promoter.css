@@ -1,0 +1,15 @@
+.promoter {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 15em;
+    padding: 10px;
+    background-color: rgb(139, 146, 209);
+    gap: .3em;
+}
+
+@media screen and (max-width: 720px) {
+    .promoter {
+       grid-template-columns: 1fr;
+       width: 5em;
+    }
+}

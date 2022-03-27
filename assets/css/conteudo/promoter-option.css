@@ -1,0 +1,10 @@
+.promoter__option {
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(248, 206, 248);
+    font-weight: 600;
+}
+
+.promoter__option:hover {
+    filter: brightness(110%);
+}
