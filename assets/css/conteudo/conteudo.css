@@ -4,4 +4,8 @@
     align-items: flex-start;
     gap: .5em;
     padding-top: 2.5em;
+    background-image: url("../../img/wallpapers/wallpaper2.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }

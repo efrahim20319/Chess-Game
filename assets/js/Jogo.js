@@ -1,26 +1,9 @@
-import { Jogador } from "./Jogador.js";
-
 export class Jogo {
 	static init(jogador1, jogador2) {
 		Jogo.casas = Jogo.obterMatrix();
-		Jogo._jogador2 = jogador1;
-		Jogo._jogador1 = jogador2;
-	}
-
-	set jogador1(jogador) {
-		Jogo._jogador1 = jogador;
-	}
-
-	get jogador1() {
-		return Jogo._jogador1;
-	}
-
-	set jogador2(jogador) {
-		Jogo._jogador2 = jogador;
-	}
-
-	get jogador2() {
-		return Jogo._jogador2;
+		Jogo.alter = true; //vez da peca branca
+		Jogo.jogador2 = jogador1;
+		Jogo.jogador1 = jogador2;
 	}
 
 	static obetrPosicao(elemento) {
@@ -194,57 +177,77 @@ export class Jogo {
 	}
 
 	static trocarVez() {
-		Jogo._jogador1.vez = !Jogo._jogador1.vez;
-		Jogo._jogador2.vez = !Jogo._jogador2.vez;
+		Jogo.jogador1.vez = !Jogo.jogador1.vez;
+		Jogo.jogador2.vez = !Jogo.jogador2.vez;
+		Jogo.alter = !Jogo.alter;
 	}
 
 	static pausar() {
-		Jogo._jogador1.vez = false;
-		Jogo._jogador2.vez = false;
+		Jogo.jogador1.vez = false;
+		Jogo.jogador2.vez = false;
+		Jogo.alter = !Jogo.alter;
+	}
+
+	static resumir() {
+		if (Jogo.alter) {
+			Jogo.jogador1.vez = true;
+			Jogo.jogador2.vez = false;
+		} else { //O unico else do codigo
+			Jogo.jogador1.vez = false;
+			Jogo.jogador2.vez = true;
+		}
 	}
 
 	static promover(peao) {
-		const promoter = document.querySelector(".promoter")
-		peao.dataset.promote = ""
-		promoter.classList.toggle("hidden")
-		const options = document.querySelectorAll(".promoter__option")
+		const promoter = document.querySelector(".promoter");
+		peao.dataset.promote = "";
+		promoter.classList.toggle("hidden");
+		const options = document.querySelectorAll(".promoter__option");
 		for (const option of options) {
 			option.addEventListener("click", () => {
-				const peao = document.querySelector("[data-promote]")
-				const nomeDaPeca = option.textContent.toLowerCase()
-				const corDaPeca = Jogo.corDaPeca(peao)
-				const elementoPai = peao.parentNode
-				peao.remove()
-				const pecaCriada = Jogo.criarPeca(nomeDaPeca)
-				pecaCriada.classList.add("peca", `${corDaPeca}`)
-				elementoPai.appendChild(pecaCriada)
-				promoter.classList.toggle("hidden")
-			})
+				const peao = document.querySelector("[data-promote]");
+				const nomeDaPeca = option.textContent.toLowerCase();
+				const corDaPeca = Jogo.corDaPeca(peao);
+				const elementoPai = peao.parentNode;
+				peao.remove();
+				const pecaCriada = Jogo.criarPeca(nomeDaPeca);
+				pecaCriada.classList.add("peca", `${corDaPeca}`);
+				elementoPai.appendChild(pecaCriada);
+				promoter.classList.toggle("hidden");
+				Jogo.resumir();
+			});
 		}
-
 	}
 
-	static mover(marcador, marcado) {
+	static tratarPeao(marcador, marcado) {
 		const linha = Jogo.obetrPosicao(marcado)[0];
 		if (marcador.classList.contains("peao")) {
 			if (marcador.dataset.primeira_play) {
 				marcador.dataset.primeira_play = false;
 			}
-			if (Jogo.corDaPeca(marcador) == "branco" && linha == 0) {
-				Jogo.promover(marcador)
-			}
-			if (Jogo.corDaPeca(marcador) == "preto" && linha == 7) {
-				Jogo.promover(marcador);
+			if (linha == 0 || linha == 7) {
+				Jogo.pausar();
+				Jogo.trocarVez(); //Tive que trocar de vez porque senao, não pausaria o jogo no metodo comer 
+				if (Jogo.corDaPeca(marcador) == "branco") {
+					Jogo.promover(marcador);
+				}
+				if (Jogo.corDaPeca(marcador) == "preto") {
+					Jogo.promover(marcador);
+				}
 			}
 		}
+	}
+
+	static mover(marcador, marcado) {
+		Jogo.tratarPeao(marcador, marcado);
 		if (Jogo.PossuiPeca(marcado)) {
 			Jogo.comer(marcado);
 		}
 		marcado.appendChild(marcador);
 		Jogo.desmarcarTudo();
 		Jogo.trocarVez();
-		Jogo._jogador1.atualizar();
-		Jogo._jogador2.atualizar();
+		Jogo.jogador1.atualizar();
+		Jogo.jogador2.atualizar();
 	}
 
 	static comer(marcado) {

@@ -7,7 +7,6 @@ const jogador2 = new Jogador("Nsimba", "branco")
 Jogo.init(jogador1, jogador2)
 Jogo.pintarTabuleiro()
 
-
 Jogo.motarPecas(0, 1, "preto")
 Jogo.motarPecas(7, 6)
 

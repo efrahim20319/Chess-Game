@@ -11,22 +11,39 @@ export class Jogador {
 		else this.vez = false;
 		this.nome = nome;
 		this.corDasPecas = cor;
-		this.n_pecas = 16;
+		this.numeroDePecas = 16;
 		this.peoes = new Array();
 		this.cavalos = new Array();
 		this.torres = new Array();
 		this.bispos = new Array();
-		this.rainha = new Array(); // É possivel ter mais de uma rainha no jogo, por isso é um array
+		this.rainhas = new Array(); // É possivel ter mais de uma rainha no jogo, por isso é um array
 		this.rei = new Array();
 	}
 
+	calcularNumeroDePecas() {
+		const n_peoes = this.peoes.length
+		const n_cavalos = this.cavalos.length
+		const n_torres = this.torres.length
+		const n_bispos = this.bispos.length
+		const n_rainhas = this.rainhas.length
+		const rei = this.rei.length
+		const soma = n_peoes + n_cavalos + n_torres + n_bispos + n_rainhas + rei
+		this.numeroDePecas = soma
+	}
+
 	atualizar() {
+		this.peoes = new Array();
+		this.cavalos = new Array();
+		this.torres = new Array();
+		this.bispos = new Array();
+		this.rainha = new Array();
 		this.iniciarPeoes();
 		this.iniciarCavalos();
 		this.iniciarTorres();
 		this.iniciarBispos();
 		this.iniciarRainhas();
 		this.iniciarRei();
+		this.calcularNumeroDePecas()
 	}
 
 	iniciarPeoes() {
@@ -91,9 +108,9 @@ export class Jogador {
 			`.rainha.${this.corDasPecas}`
 		);
 		for (let i = 0; i < rainhas.length; i++) {
-			this.rainha[i] = new Rainha();
-			this.rainha[i].elemento = rainhas[i];
-			const rainha = this.rainha[i];
+			this.rainhas[i] = new Rainha();
+			this.rainhas[i].elemento = rainhas[i];
+			const rainha = this.rainhas[i];
 			const inst_jogador = this;
 			rainhas[i].addEventListener("click", function () {
 				if (inst_jogador.vez) rainha.mostrarDisponiveis(this);
