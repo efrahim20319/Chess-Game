@@ -3,7 +3,7 @@
     grid-template-columns: 1fr 1fr;
     width: 15em;
     padding: 10px;
-    background-color: rgb(139, 146, 209);
+    background-color: var(--corDoPromoter);
     gap: .3em;
 }
 

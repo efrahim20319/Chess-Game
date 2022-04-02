@@ -5,6 +5,7 @@ body {
         "cabecalho"
         "conteudo"
         "rodape";
+    overflow-y: hidden;
 }
 
 .cabecalho {

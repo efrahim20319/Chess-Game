@@ -3,11 +3,11 @@
     justify-content: center;
     align-items: center;
     border: 1px solid rgb(75, 71, 47);
-    background-color: rgb(185, 183, 183);
+    background-color: var(--corCasaPar);
 }
 
 .casaPreta {
-    background-color: rgb(36, 36, 36);
+    background-color: var(--corCasaImpar);
 }
 
 .casa:hover {

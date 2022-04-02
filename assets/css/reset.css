@@ -1,3 +1,10 @@
+:root{
+    --corCasaPar: rgb(223, 223, 223);
+    --corCasaImpar: rgb(121, 121, 121);
+    --corDoPromoter: rgb(112, 112, 112);
+    --corDoPromoterOption: rgb(184, 181, 181);
+}
+
 body {
     font-family: Roboto, sans-serif;
 }
