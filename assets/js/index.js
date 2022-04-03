@@ -10,6 +10,4 @@ Jogo.pintarTabuleiro()
 Jogo.motarPecas(0, 1, "preto")
 Jogo.motarPecas(7, 6)
 
-
-jogador1.atualizar()
-jogador2.atualizar()
+Jogo.atualizar()

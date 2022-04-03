@@ -192,7 +192,8 @@ export class Jogo {
 		if (Jogo.alter) {
 			Jogo.jogador1.vez = true;
 			Jogo.jogador2.vez = false;
-		} else { //O unico else do codigo
+		} else {
+			//O unico else do codigo
 			Jogo.jogador1.vez = false;
 			Jogo.jogador2.vez = true;
 		}
@@ -227,7 +228,7 @@ export class Jogo {
 			}
 			if (linha == 0 || linha == 7) {
 				Jogo.pausar();
-				Jogo.trocarVez(); //Tive que trocar de vez porque senao, não pausaria o jogo no metodo comer 
+				Jogo.trocarVez(); //Tive que trocar de vez porque senao, não pausaria o jogo no metodo comer
 				if (Jogo.corDaPeca(marcador) == "branco") {
 					Jogo.promover(marcador);
 				}
@@ -238,16 +239,24 @@ export class Jogo {
 		}
 	}
 
+	static tipoDaPeca(peca) {
+		const ordem = ["torre", "cavalo", "bispo", "rainha", "rei", "peao"];
+		for (const item of ordem)
+			if (peca.classList.contains(item)) return item;
+	}
+
+	static atualizar() {
+		Jogo.jogador1.atualizar();
+		Jogo.jogador2.atualizar();
+	}
+
 	static mover(marcador, marcado) {
 		Jogo.tratarPeao(marcador, marcado);
-		if (Jogo.PossuiPeca(marcado)) {
-			Jogo.comer(marcado);
-		}
+		if (Jogo.PossuiPeca(marcado)) Jogo.comer(marcado);
 		marcado.appendChild(marcador);
 		Jogo.desmarcarTudo();
 		Jogo.trocarVez();
-		Jogo.jogador1.atualizar();
-		Jogo.jogador2.atualizar();
+		Jogo.atualizar();
 	}
 
 	static comer(marcado) {
