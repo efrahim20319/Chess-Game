@@ -76,16 +76,16 @@ export class Peca {
 		return casas;
 	}
 
-	marcarEmSequencia(casas) {
+	marcarEmSequencia(casas, bloquearNoUltimo = false) {
 		for (let i = 0; i < casas.length; i++) {
 			const casa = casas[i];
 			if (Jogo.casaEstaOcupada(casa)) {
 				if (Jogo.corEhDiferente(this.elemento, casa.childNodes[0])) {
 					// Pode ser simplificado mas eu prefiro deixar assim
 					Jogo.marcar(casa, true);
-					return;
+					if (!bloquearNoUltimo) return;
 				}
-				return;
+				if (!bloquearNoUltimo) return;
 			}
 			Jogo.marcar(casa);
 		}

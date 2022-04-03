@@ -107,11 +107,11 @@ export class Jogo {
 		}
 	}
 
-	static marcarEmSequencia(casas) {
+	static marcarEmSequencia(casas, force = false) {
 		for (let i = 0; i < casas.length; i++) {
 			const casa = casas[i];
 			if (Jogo.casaEstaOcupada(casa)) return;
-			Jogo.marcar(casa);
+			Jogo.marcar(casa, force);
 		}
 	}
 
