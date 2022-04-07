@@ -77,8 +77,7 @@ export class Peca {
 	}
 
 	marcarEmSequencia(casas, bloquearNoUltimo = false) {
-		for (let i = 0; i < casas.length; i++) {
-			const casa = casas[i];
+		for (const casa of casas) {
 			if (Jogo.casaEstaOcupada(casa)) {
 				if (Jogo.corEhDiferente(this.elemento, casa.childNodes[0])) {
 					// Pode ser simplificado mas eu prefiro deixar assim
@@ -89,5 +88,20 @@ export class Peca {
 			}
 			Jogo.marcar(casa);
 		}
+	}
+	marcacoes(casas, bloquearNoUltimo = false) {
+		const casasAhMarcar = [];
+		for (const casa of casas) {
+			if (Jogo.casaEstaOcupada(casa)) {
+				if (Jogo.corEhDiferente(this.elemento, casa.childNodes[0])) {
+					// Pode ser simplificado mas eu prefiro deixar assim
+					casasAhMarcar.push(casa)
+					if (!bloquearNoUltimo) break;
+				}
+				if (!bloquearNoUltimo) break;
+			}
+			casasAhMarcar.push(casa)
+		}
+		return casasAhMarcar;
 	}
 }

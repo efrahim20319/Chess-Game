@@ -6,6 +6,25 @@ export class Torre extends Peca {
 		super();
 	}
 
+	killers() {
+		const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentNode);
+		const inst = this;
+		const killers = new Array()
+			.concat(
+				this.marcacoes(this.casas_a_Frente(linha, coluna)),
+				this.marcacoes(this.casas_a_tras(linha, coluna)),
+				this.marcacoes(this.casas_a_direita(linha, coluna)),
+				this.marcacoes(this.casas_a_esquerda(linha, coluna))
+			)
+			.filter(
+				(casa) =>
+					casa !== undefined &&
+					Jogo.PossuiPeca(casa) &&
+					Jogo.corEhDiferente(casa.childNodes[0], inst.elemento)
+			);
+		return killers;
+	}
+
 	mostrarDisponiveis(torre) {
 		this.elemento = torre;
 		Jogo.desmarcarTudo();

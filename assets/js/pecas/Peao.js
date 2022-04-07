@@ -37,6 +37,11 @@ export class Peao extends Peca {
 		return [casasAhMarcar[0]];
 	}
 
+	killers() {
+		const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentNode)
+		return this.casasNaDiagonal(linha, coluna);
+	}
+
 	mostrarDisponiveis(peao) {
 		Jogo.desmarcarTudo();
 		let pos = Jogo.obetrPosicao(peao.parentNode);
