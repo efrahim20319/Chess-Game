@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "outDir": "./assets/js",
+        "target": "ES6"
+    },
+    "include": ["assets/app/**/*"]
+}
