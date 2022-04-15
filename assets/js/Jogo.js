@@ -224,6 +224,16 @@ export class Jogo {
             }
         }
     }
+    static removerTodosEventos() {
+        const casas = [...document.querySelectorAll(".casa")];
+        const casasOcupadas = casas.filter((casa) => Jogo.PossuiPeca(casa));
+        for (const casa of casasOcupadas) {
+            const pecaAntiga = casa.firstElementChild;
+            const pecaNova = pecaAntiga.cloneNode(true);
+            pecaAntiga.remove();
+            casa.appendChild(pecaNova);
+        }
+    }
     static tipoDaPeca(peca) {
         const ordem = ["torre", "cavalo", "bispo", "rainha", "rei", "peao"];
         for (const item of ordem)
@@ -241,6 +251,7 @@ export class Jogo {
         marcado.appendChild(marcador);
         Jogo.desmarcarTudo();
         Jogo.trocarVez();
+        Jogo.removerTodosEventos();
         Jogo.atualizar();
     }
     static comer(marcado) {
