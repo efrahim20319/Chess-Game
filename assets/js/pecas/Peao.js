@@ -50,6 +50,7 @@ export class Peao extends Peca {
             if (this.elemento.classList.contains("preto")) {
                 const casasAhFrente = this.casasAhFrente(linha, coluna);
                 const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
+                console.log(this.killers());
                 this.marcarEmSequencia(casasNaDiagonal, true);
                 Jogo.marcarEmSequencia(casasAhFrente);
                 Jogo.prepararMovimento();
@@ -57,6 +58,7 @@ export class Peao extends Peca {
             else {
                 const casasAhFrente = this.casasAhFrente(linha, coluna);
                 const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
+                console.log(this.killers());
                 this.marcarEmSequencia(casasNaDiagonal, true);
                 Jogo.marcarEmSequencia(casasAhFrente);
                 Jogo.prepararMovimento();

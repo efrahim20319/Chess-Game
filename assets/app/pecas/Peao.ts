@@ -40,7 +40,7 @@ export class Peao extends Peca {
         return [casasAhMarcar[0]];
     }
 
-    killers() {
+    killers(): Array<Element> {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         return this.casasNaDiagonal(linha, coluna);
     }
@@ -54,12 +54,14 @@ export class Peao extends Peca {
             if (this.elemento.classList.contains("preto")) {
                 const casasAhFrente = this.casasAhFrente(linha, coluna);
                 const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
+                console.log(this.killers());
                 this.marcarEmSequencia(casasNaDiagonal, true);
                 Jogo.marcarEmSequencia(casasAhFrente);
                 Jogo.prepararMovimento();
             } else {
                 const casasAhFrente = this.casasAhFrente(linha, coluna);
                 const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
+                console.log(this.killers());
                 this.marcarEmSequencia(casasNaDiagonal, true);
                 Jogo.marcarEmSequencia(casasAhFrente);
                 Jogo.prepararMovimento();

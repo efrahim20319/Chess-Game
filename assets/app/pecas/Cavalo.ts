@@ -27,14 +27,14 @@ export class Cavalo extends Peca {
                 Jogo.PossuiPeca(casa) &&
                 Jogo.corEhDiferente(casa.firstElementChild, inst.elemento)
         );
-        console.log(killers);
+        return killers
     }
     mostrarDisponiveis() {
         Jogo.desmarcarTudo();
         this.elemento.setAttribute("data-marcador", "");
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const casasAhMarcar = this.casasAhVolta(linha, coluna);
-        this.killers();
+        console.log(this.killers())
         Jogo.marcarGrupo(casasAhMarcar);
         Jogo.prepararMovimento();
     }

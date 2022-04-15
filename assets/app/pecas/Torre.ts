@@ -6,7 +6,7 @@ export class Torre extends Peca {
         super();
     }
 
-    killers() {
+    killers(): Array<Element> {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const inst = this;
         const killers = new Array()
@@ -33,6 +33,7 @@ export class Torre extends Peca {
         const casas_a_tras = this.casas_a_tras(linha, coluna);
         const casas_a_direita = this.casas_a_direita(linha, coluna);
         const casas_a_esquerda = this.casas_a_esquerda(linha, coluna);
+        console.log(this.killers());
         this.marcarEmSequencia(casas_a_Frente);
         this.marcarEmSequencia(casas_a_tras);
         this.marcarEmSequencia(casas_a_direita);

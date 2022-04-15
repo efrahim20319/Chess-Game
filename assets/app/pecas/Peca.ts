@@ -92,7 +92,7 @@ export class Peca {
             Jogo.marcar(casa);
         }
     }
-    marcacoes(casas: Array<HTMLDivElement>, bloquearNoUltimo = false) {
+    marcacoes(casas: Array<HTMLDivElement>, bloquearNoUltimo = false): Array<HTMLDivElement> {
         const casasAhMarcar = [];
         for (const casa of casas) {
             if (Jogo.casaEstaOcupada(casa)) {

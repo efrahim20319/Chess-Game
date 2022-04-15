@@ -4,6 +4,14 @@ export class Rei extends Peca {
     constructor() {
         super();
     }
+    killers() {
+        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
+        const inst = this;
+        const killers = this.casasAhVolta(linha, coluna).filter((casa) => casa !== undefined &&
+            Jogo.PossuiPeca(casa) &&
+            Jogo.corEhDiferente(casa.firstElementChild, inst.elemento));
+        return killers;
+    }
     casasAhVolta(linha, coluna) {
         const casa_a_tras = Jogo.obterCasa(linha + 1, coluna);
         const casa_a_frente = Jogo.obterCasa(linha - 1, coluna);
@@ -29,6 +37,7 @@ export class Rei extends Peca {
         this.elemento.setAttribute("data-marcador", "");
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const casasAhmarcar = this.casasAhVolta(linha, coluna);
+        console.log(this.killers());
         Jogo.marcarGrupo(casasAhmarcar);
         Jogo.prepararMovimento();
     }

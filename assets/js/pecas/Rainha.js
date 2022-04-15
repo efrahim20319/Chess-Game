@@ -4,6 +4,16 @@ export class Rainha extends Peca {
     constructor() {
         super();
     }
+    killers() {
+        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
+        const inst = this;
+        const killers = new Array()
+            .concat(this.marcacoes(this.casas_topo_direita(linha, coluna)), this.marcacoes(this.casas_topo_esquerda(linha, coluna)), this.marcacoes(this.casas_baixo_direita(linha, coluna)), this.marcacoes(this.casas_baixo_esquerda(linha, coluna)), this.marcacoes(this.casas_a_Frente(linha, coluna)), this.marcacoes(this.casas_a_tras(linha, coluna)), this.marcacoes(this.casas_a_direita(linha, coluna)), this.marcacoes(this.casas_a_esquerda(linha, coluna)))
+            .filter((casa) => casa !== undefined &&
+            Jogo.PossuiPeca(casa) &&
+            Jogo.corEhDiferente(casa.childNodes[0], inst.elemento));
+        return killers;
+    }
     mostrarDisponiveis() {
         Jogo.desmarcarTudo();
         this.elemento.setAttribute("data-marcador", "");
@@ -16,6 +26,7 @@ export class Rainha extends Peca {
         const casas_topo_esquerda = this.casas_topo_esquerda(linha, coluna);
         const casas_baixo_direita = this.casas_baixo_direita(linha, coluna);
         const casas_baixo_esquerda = this.casas_baixo_esquerda(linha, coluna);
+        console.log(this.killers());
         this.marcarEmSequencia(casas_a_tras);
         this.marcarEmSequencia(casas_a_frente);
         this.marcarEmSequencia(casas_a_direita);
