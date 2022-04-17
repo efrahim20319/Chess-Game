@@ -83,7 +83,7 @@ export class Peca {
     marcacoes(casas, bloquearNoUltimo = false) {
         const casasAhMarcar = [];
         for (const casa of casas) {
-            if (Jogo.casaEstaOcupada(casa)) {
+            if (Jogo.PossuiPeca(casa)) {
                 if (Jogo.corEhDiferente(this.elemento, casa.firstElementChild)) {
                     // Pode ser simplificado mas eu prefiro deixar assim
                     casasAhMarcar.push(casa);

@@ -95,7 +95,7 @@ export class Peca {
     marcacoes(casas: Array<HTMLDivElement>, bloquearNoUltimo = false): Array<HTMLDivElement> {
         const casasAhMarcar = [];
         for (const casa of casas) {
-            if (Jogo.casaEstaOcupada(casa)) {
+            if (Jogo.PossuiPeca(casa)) {
                 if (
                     Jogo.corEhDiferente(this.elemento, casa.firstElementChild)
                 ) {

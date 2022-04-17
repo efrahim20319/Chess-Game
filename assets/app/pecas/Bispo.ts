@@ -1,24 +1,6 @@
 import { Peca } from "./Peca.js";
 import { Jogo } from "../Jogo.js";
 
-function marcacoes(casas: Array<HTMLDivElement>, elemento: Element, bloquearNoUltimo = false): Array<HTMLDivElement> {
-    const casasAhMarcar = [];
-    for (const casa of casas) {
-        if (Jogo.PossuiPeca(casa)) {
-            if (
-                Jogo.corEhDiferente(elemento, casa.firstElementChild)
-            ) {
-                // Pode ser simplificado mas eu prefiro deixar assim
-                casasAhMarcar.push(casa);
-                if (!bloquearNoUltimo) break;
-            }
-            if (!bloquearNoUltimo) break;
-        }
-        casasAhMarcar.push(casa);
-    }
-    
-    return casasAhMarcar;
-}
 export class Bispo extends Peca {
     constructor() {
         super();
@@ -29,10 +11,10 @@ export class Bispo extends Peca {
         const inst = this;
         const killers = new Array()
             .concat(
-                marcacoes(this.casas_topo_direita(linha, coluna).filter(casa => casa !== undefined), this.elemento),
-                marcacoes(this.casas_topo_esquerda(linha, coluna).filter(casa => casa !== undefined), this.elemento),
-                marcacoes(this.casas_baixo_direita(linha, coluna).filter(casa => casa !== undefined), this.elemento),
-                marcacoes(this.casas_baixo_esquerda(linha, coluna).filter(casa => casa !== undefined), this.elemento)
+                this.marcacoes(this.casas_topo_direita(linha, coluna)),
+                this.marcacoes(this.casas_topo_esquerda(linha, coluna)),
+                this.marcacoes(this.casas_baixo_direita(linha, coluna)),
+                this.marcacoes(this.casas_baixo_esquerda(linha, coluna))
             )
             .filter(
                 (casa) =>
