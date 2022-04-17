@@ -127,6 +127,7 @@ export class Jogo {
             marcador.removeAttribute("data-marcador");
         Jogo.casas.forEach((linha) => {
             for (let casa of linha) {
+                casa.classList.remove("cheque");
                 casa.classList.remove("alvo");
                 casa.classList.remove("selecionado");
                 if (casa.classList.contains("marcado")) {
@@ -246,7 +247,7 @@ export class Jogo {
         Jogo.jogador1.atualizar();
         Jogo.jogador2.atualizar();
     }
-    static mostrarKillers() {
+    static mostrarVitimas() {
         let cor = "";
         let killers = [];
         if (!Jogo.alter) {
@@ -258,7 +259,15 @@ export class Jogo {
             killers = this.jogador2.killers();
         }
         const killersSet = new Set(killers);
-        console.log("\n\n___________________\n\n", cor, [...killersSet]);
+        return new Array(...killersSet);
+    }
+    static EstaEmCheque() {
+        const efeitoDeSom = new Audio("assets/audio/cheque.mp3");
+        const vitimas = Jogo.mostrarVitimas().filter((casa) => Jogo.tipoDaPeca(casa.firstElementChild) == "rei");
+        if (vitimas.length) {
+            efeitoDeSom.play();
+            vitimas[0].classList.add("cheque");
+        }
     }
     static mover(marcador, marcado) {
         Jogo.tratarPeao(marcador, marcado);
@@ -269,7 +278,8 @@ export class Jogo {
         Jogo.trocarVez();
         Jogo.removerTodosEventos();
         Jogo.atualizar();
-        Jogo.mostrarKillers();
+        Jogo.mostrarVitimas();
+        Jogo.EstaEmCheque();
     }
     static comer(marcado) {
         marcado.innerHTML = "";

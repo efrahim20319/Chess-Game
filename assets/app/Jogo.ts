@@ -95,7 +95,7 @@ export class Jogo {
     }
 
     static PossuiPeca(casa: Element) {
-        if (casa == undefined) return false
+        if (casa == undefined) return false;
         if (casa.childNodes.length) return true;
         return false;
     }
@@ -139,6 +139,7 @@ export class Jogo {
         if (marcador) marcador.removeAttribute("data-marcador");
         Jogo.casas.forEach((linha) => {
             for (let casa of linha) {
+                casa.classList.remove("cheque");
                 casa.classList.remove("alvo");
                 casa.classList.remove("selecionado");
                 if (casa.classList.contains("marcado")) {
@@ -257,7 +258,7 @@ export class Jogo {
         }
     }
 
-    static tipoDaPeca(peca: HTMLSpanElement) {
+    static tipoDaPeca(peca: Element) {
         const ordem = ["torre", "cavalo", "bispo", "rainha", "rei", "peao"];
         for (const item of ordem)
             if (peca.classList.contains(item)) return item;
@@ -268,18 +269,30 @@ export class Jogo {
         Jogo.jogador2.atualizar();
     }
 
-    static mostrarKillers() {
+    static mostrarVitimas(): Array<Element> {
         let cor = "";
         let killers: Array<Element> = [];
         if (!Jogo.alter) {
             cor = this.jogador1.corDasPecas;
-            killers = this.jogador1.killers()
+            killers = this.jogador1.killers();
         } else {
             cor = this.jogador2.corDasPecas;
-            killers = this.jogador2.killers()
+            killers = this.jogador2.killers();
         }
-        const killersSet = new Set(killers)
-        console.log("\n\n___________________\n\n",cor,[...killersSet]);
+        const killersSet = new Set(killers);
+
+        return new Array(...killersSet);
+    }
+
+    static EstaEmCheque() {
+        const efeitoDeSom = new Audio("assets/audio/cheque.mp3")
+        const vitimas = Jogo.mostrarVitimas().filter(
+            (casa) => Jogo.tipoDaPeca(casa.firstElementChild) == "rei"
+        );
+        if (vitimas.length) {
+            efeitoDeSom.play()
+            vitimas[0].classList.add("cheque");
+        }
     }
 
     static mover(marcador: any, marcado: any) {
@@ -290,7 +303,8 @@ export class Jogo {
         Jogo.trocarVez();
         Jogo.removerTodosEventos();
         Jogo.atualizar();
-        Jogo.mostrarKillers();
+        Jogo.mostrarVitimas();
+        Jogo.EstaEmCheque();
     }
 
     static comer(marcado: HTMLDivElement) {
