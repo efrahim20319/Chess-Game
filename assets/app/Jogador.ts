@@ -144,4 +144,35 @@ export class Jogador {
             });
         }
     }
+
+    killers(): Array<Element> {
+        const killers = Array();
+
+        this.peoes.forEach((peao) => {
+            console.log(peao, peao.killers());
+            killers.push(...peao.killers());
+        });
+        this.torres.forEach((torre) => {
+            console.log(torre, torre.killers());
+            killers.push(...torre.killers());
+        });
+        this.bispos.forEach((bispo) => {
+            console.log(bispo, bispo.killers());
+            killers.push(...bispo.killers());
+        });
+        this.cavalos.forEach((cavalo) => {
+            console.log(cavalo, cavalo.killers());
+            killers.push(...cavalo.killers());
+        });
+        this.rainhas.forEach((rainha) => {
+            console.log(rainha, rainha.killers());
+            killers.push(...rainha.killers());
+        });
+        this.rei.forEach((rei) => {
+            console.log(rei, rei.killers());
+            killers.push(...rei.killers());
+        });
+
+        return killers;
+    }
 }

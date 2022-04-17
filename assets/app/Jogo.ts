@@ -95,6 +95,7 @@ export class Jogo {
     }
 
     static PossuiPeca(casa: Element) {
+        if (casa == undefined) return false
         if (casa.childNodes.length) return true;
         return false;
     }
@@ -267,6 +268,20 @@ export class Jogo {
         Jogo.jogador2.atualizar();
     }
 
+    static mostrarKillers() {
+        let cor = "";
+        let killers: Array<Element> = [];
+        if (!Jogo.alter) {
+            cor = this.jogador1.corDasPecas;
+            killers = this.jogador1.killers()
+        } else {
+            cor = this.jogador2.corDasPecas;
+            killers = this.jogador2.killers()
+        }
+        const killersSet = new Set(killers)
+        console.log("\n\n___________________\n\n",cor,[...killersSet]);
+    }
+
     static mover(marcador: any, marcado: any) {
         Jogo.tratarPeao(marcador, marcado);
         if (Jogo.PossuiPeca(marcado)) Jogo.comer(marcado);
@@ -275,6 +290,7 @@ export class Jogo {
         Jogo.trocarVez();
         Jogo.removerTodosEventos();
         Jogo.atualizar();
+        Jogo.mostrarKillers();
     }
 
     static comer(marcado: HTMLDivElement) {

@@ -83,6 +83,8 @@ export class Jogo {
         }
     }
     static PossuiPeca(casa) {
+        if (casa == undefined)
+            return false;
         if (casa.childNodes.length)
             return true;
         return false;
@@ -244,6 +246,20 @@ export class Jogo {
         Jogo.jogador1.atualizar();
         Jogo.jogador2.atualizar();
     }
+    static mostrarKillers() {
+        let cor = "";
+        let killers = [];
+        if (!Jogo.alter) {
+            cor = this.jogador1.corDasPecas;
+            killers = this.jogador1.killers();
+        }
+        else {
+            cor = this.jogador2.corDasPecas;
+            killers = this.jogador2.killers();
+        }
+        const killersSet = new Set(killers);
+        console.log("\n\n___________________\n\n", cor, [...killersSet]);
+    }
     static mover(marcador, marcado) {
         Jogo.tratarPeao(marcador, marcado);
         if (Jogo.PossuiPeca(marcado))
@@ -253,6 +269,7 @@ export class Jogo {
         Jogo.trocarVez();
         Jogo.removerTodosEventos();
         Jogo.atualizar();
+        Jogo.mostrarKillers();
     }
     static comer(marcado) {
         marcado.innerHTML = "";

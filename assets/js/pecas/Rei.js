@@ -37,7 +37,6 @@ export class Rei extends Peca {
         this.elemento.setAttribute("data-marcador", "");
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const casasAhmarcar = this.casasAhVolta(linha, coluna);
-        console.log(this.killers());
         Jogo.marcarGrupo(casasAhmarcar);
         Jogo.prepararMovimento();
     }

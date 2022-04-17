@@ -34,7 +34,6 @@ export class Cavalo extends Peca {
         this.elemento.setAttribute("data-marcador", "");
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const casasAhMarcar = this.casasAhVolta(linha, coluna);
-        console.log(this.killers())
         Jogo.marcarGrupo(casasAhMarcar);
         Jogo.prepararMovimento();
     }

@@ -1,6 +1,24 @@
 import { Peca } from "./Peca.js";
 import { Jogo } from "../Jogo.js";
 
+function marcacoes(casas: Array<HTMLDivElement>, elemento: Element, bloquearNoUltimo = false): Array<HTMLDivElement> {
+    const casasAhMarcar = [];
+    for (const casa of casas) {
+        if (Jogo.PossuiPeca(casa)) {
+            if (
+                Jogo.corEhDiferente(elemento, casa.firstElementChild)
+            ) {
+                // Pode ser simplificado mas eu prefiro deixar assim
+                casasAhMarcar.push(casa);
+                if (!bloquearNoUltimo) break;
+            }
+            if (!bloquearNoUltimo) break;
+        }
+        casasAhMarcar.push(casa);
+    }
+    
+    return casasAhMarcar;
+}
 export class Bispo extends Peca {
     constructor() {
         super();
@@ -11,10 +29,10 @@ export class Bispo extends Peca {
         const inst = this;
         const killers = new Array()
             .concat(
-                this.marcacoes(this.casas_topo_direita(linha, coluna)),
-                this.marcacoes(this.casas_topo_esquerda(linha, coluna)),
-                this.marcacoes(this.casas_baixo_direita(linha, coluna)),
-                this.marcacoes(this.casas_baixo_esquerda(linha, coluna))
+                marcacoes(this.casas_topo_direita(linha, coluna).filter(casa => casa !== undefined), this.elemento),
+                marcacoes(this.casas_topo_esquerda(linha, coluna).filter(casa => casa !== undefined), this.elemento),
+                marcacoes(this.casas_baixo_direita(linha, coluna).filter(casa => casa !== undefined), this.elemento),
+                marcacoes(this.casas_baixo_esquerda(linha, coluna).filter(casa => casa !== undefined), this.elemento)
             )
             .filter(
                 (casa) =>
@@ -33,7 +51,6 @@ export class Bispo extends Peca {
         const casas_topo_esquerda = this.casas_topo_esquerda(linha, coluna);
         const casas_baixo_direita = this.casas_baixo_direita(linha, coluna);
         const casas_baixo_esquerda = this.casas_baixo_esquerda(linha, coluna);
-        console.log(this.killers());
         this.marcarEmSequencia(casas_topo_direita);
         this.marcarEmSequencia(casas_topo_esquerda);
         this.marcarEmSequencia(casas_baixo_direita);

@@ -13,11 +13,11 @@ export class Peao extends Peca {
         const casa1 = Jogo.obterCasa(eval(`${linha} ${sinal} 1`), coluna - 1);
         const casa2 = Jogo.obterCasa(eval(`${linha} ${sinal} 1`), coluna + 1);
         const casasAhMarcar = new Array();
-        if (Jogo.casaEstaOcupada(casa1)) {
+        if (Jogo.PossuiPeca(casa1)) {
             if (Jogo.corEhDiferente(this.elemento, casa1.firstElementChild))
                 casasAhMarcar.push(casa1);
         }
-        if (Jogo.casaEstaOcupada(casa2)) {
+        if (Jogo.PossuiPeca(casa2)) {
             if (Jogo.corEhDiferente(this.elemento, casa2.firstElementChild))
                 casasAhMarcar.push(casa2);
         }
@@ -39,7 +39,8 @@ export class Peao extends Peca {
     }
     killers() {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
-        return this.casasNaDiagonal(linha, coluna);
+        const killers = this.casasNaDiagonal(linha, coluna);
+        return killers;
     }
     mostrarDisponiveis() {
         Jogo.desmarcarTudo();
@@ -50,7 +51,6 @@ export class Peao extends Peca {
             if (this.elemento.classList.contains("preto")) {
                 const casasAhFrente = this.casasAhFrente(linha, coluna);
                 const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
-                console.log(this.killers());
                 this.marcarEmSequencia(casasNaDiagonal, true);
                 Jogo.marcarEmSequencia(casasAhFrente);
                 Jogo.prepararMovimento();
@@ -58,7 +58,6 @@ export class Peao extends Peca {
             else {
                 const casasAhFrente = this.casasAhFrente(linha, coluna);
                 const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
-                console.log(this.killers());
                 this.marcarEmSequencia(casasNaDiagonal, true);
                 Jogo.marcarEmSequencia(casasAhFrente);
                 Jogo.prepararMovimento();
