@@ -15,13 +15,13 @@ export class Cavalo extends Peca {
         const casa8 = Jogo.obterCasa(linha + 2, coluna + 1);
         return [casa1, casa2, casa3, casa4, casa5, casa6, casa7, casa8];
     }
-    killers() {
+    vitimas() {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const inst = this;
-        const killers = this.casasAhVolta(linha, coluna).filter((casa) => casa !== undefined &&
+        const vitimas = this.casasAhVolta(linha, coluna).filter((casa) => casa !== undefined &&
             Jogo.PossuiPeca(casa) &&
             Jogo.corEhDiferente(casa.firstElementChild, inst.elemento));
-        return killers;
+        return vitimas;
     }
     mostrarDisponiveis() {
         Jogo.desmarcarTudo();

@@ -6,10 +6,10 @@ export class Rainha extends Peca {
         super();
     }
 
-    killers(): Array<Element> {
+    vitimas(): Array<Element> {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const inst = this;
-        const killers = new Array()
+        const vitimas = new Array()
             .concat(
                 this.marcacoes(this.casas_topo_direita(linha, coluna)),
                 this.marcacoes(this.casas_topo_esquerda(linha, coluna)),
@@ -26,7 +26,7 @@ export class Rainha extends Peca {
                     Jogo.PossuiPeca(casa) &&
                     Jogo.corEhDiferente(casa.childNodes[0], inst.elemento)
             );
-        return killers;
+        return vitimas;
     }
 
     mostrarDisponiveis() {

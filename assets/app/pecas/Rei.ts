@@ -6,16 +6,16 @@ export class Rei extends Peca {
         super();
     }
 
-    killers() {
+    vitimas() {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const inst = this;
-        const killers = this.casasAhVolta(linha, coluna).filter(
+        const vitimas = this.casasAhVolta(linha, coluna).filter(
             (casa) =>
                 casa !== undefined &&
                 Jogo.PossuiPeca(casa) &&
                 Jogo.corEhDiferente(casa.firstElementChild, inst.elemento)
         );
-        return killers
+        return vitimas
     }
 
     casasAhVolta(linha: number, coluna: number): Array<HTMLDivElement> {

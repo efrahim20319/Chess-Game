@@ -40,10 +40,10 @@ export class Peao extends Peca {
         return [casasAhMarcar[0]];
     }
 
-    killers(): Array<Element> {
+    vitimas(): Array<Element> {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
-        const killers = this.casasNaDiagonal(linha, coluna);
-        return killers;
+        const vitimas = this.casasNaDiagonal(linha, coluna);
+        return vitimas;
     }
 
     mostrarDisponiveis() {

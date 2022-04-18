@@ -205,7 +205,10 @@ export class Jogo {
                 pecaCriada.classList.add("peca", `${corDaPeca}`);
                 elementoPai.appendChild(pecaCriada);
                 promoter.classList.toggle("hidden");
-                this.resumir();
+                Jogo.resumir();
+                Jogo.removerTodosEventos();
+                Jogo.atualizar();
+                Jogo.EstaEmCheque();
             });
         }
     }
@@ -252,11 +255,11 @@ export class Jogo {
         let killers = [];
         if (!Jogo.alter) {
             cor = this.jogador1.corDasPecas;
-            killers = this.jogador1.killers();
+            killers = this.jogador1.vitimas();
         }
         else {
             cor = this.jogador2.corDasPecas;
-            killers = this.jogador2.killers();
+            killers = this.jogador2.vitimas();
         }
         const killersSet = new Set(killers);
         return new Array(...killersSet);
@@ -278,7 +281,6 @@ export class Jogo {
         Jogo.trocarVez();
         Jogo.removerTodosEventos();
         Jogo.atualizar();
-        Jogo.mostrarVitimas();
         Jogo.EstaEmCheque();
     }
     static comer(marcado) {

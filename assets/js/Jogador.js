@@ -128,14 +128,14 @@ export class Jogador {
             });
         }
     }
-    killers() {
-        const killers = Array();
-        this.peoes.forEach((peao) => killers.push(...peao.killers()));
-        this.torres.forEach((torre) => killers.push(...torre.killers()));
-        this.bispos.forEach((bispo) => killers.push(...bispo.killers()));
-        this.cavalos.forEach((cavalo) => killers.push(...cavalo.killers()));
-        this.rainhas.forEach((rainha) => killers.push(...rainha.killers()));
-        this.rei.forEach((rei) => killers.push(...rei.killers()));
-        return killers;
+    vitimas() {
+        const vitimas = Array();
+        this.peoes.forEach((peao) => vitimas.push(...peao.vitimas()));
+        this.torres.forEach((torre) => vitimas.push(...torre.vitimas()));
+        this.bispos.forEach((bispo) => vitimas.push(...bispo.vitimas()));
+        this.cavalos.forEach((cavalo) => vitimas.push(...cavalo.vitimas()));
+        this.rainhas.forEach((rainha) => vitimas.push(...rainha.vitimas()));
+        this.rei.forEach((rei) => vitimas.push(...rei.vitimas()));
+        return vitimas;
     }
 }

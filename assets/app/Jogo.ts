@@ -223,7 +223,10 @@ export class Jogo {
                 pecaCriada.classList.add("peca", `${corDaPeca}`);
                 elementoPai.appendChild(pecaCriada);
                 promoter.classList.toggle("hidden");
-                this.resumir();
+                Jogo.resumir();
+                Jogo.removerTodosEventos();
+                Jogo.atualizar();
+                Jogo.EstaEmCheque();
             });
         }
     }
@@ -274,10 +277,10 @@ export class Jogo {
         let killers: Array<Element> = [];
         if (!Jogo.alter) {
             cor = this.jogador1.corDasPecas;
-            killers = this.jogador1.killers();
+            killers = this.jogador1.vitimas();
         } else {
             cor = this.jogador2.corDasPecas;
-            killers = this.jogador2.killers();
+            killers = this.jogador2.vitimas();
         }
         const killersSet = new Set(killers);
 
@@ -285,12 +288,12 @@ export class Jogo {
     }
 
     static EstaEmCheque() {
-        const efeitoDeSom = new Audio("assets/audio/cheque.mp3")
+        const efeitoDeSom = new Audio("assets/audio/cheque.mp3");
         const vitimas = Jogo.mostrarVitimas().filter(
             (casa) => Jogo.tipoDaPeca(casa.firstElementChild) == "rei"
         );
         if (vitimas.length) {
-            efeitoDeSom.play()
+            efeitoDeSom.play();
             vitimas[0].classList.add("cheque");
         }
     }
@@ -303,7 +306,6 @@ export class Jogo {
         Jogo.trocarVez();
         Jogo.removerTodosEventos();
         Jogo.atualizar();
-        Jogo.mostrarVitimas();
         Jogo.EstaEmCheque();
     }
 
