@@ -3,6 +3,8 @@
     --corCasaImpar: rgb(121, 121, 121);
     --corDoPromoter: rgb(112, 112, 112);
     --corDoPromoterOption: rgb(184, 181, 181);
+    --alvo: rgb(196, 65, 65);
+    --cheque: rgb(164, 103, 221);
 }
 
 body {

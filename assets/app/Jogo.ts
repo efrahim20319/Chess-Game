@@ -122,9 +122,9 @@ export class Jogo {
         }
     }
 
-    static marcarGrupo(casas: Array<HTMLDivElement>) {
+    static marcarGrupo(casas: Array<Element>, forceOption = false) {
         for (const casa of casas) {
-            Jogo.marcar(casa);
+            Jogo.marcar(casa, forceOption);
         }
     }
 

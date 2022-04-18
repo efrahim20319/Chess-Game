@@ -48,20 +48,11 @@ export class Peao extends Peca {
         this.elemento.setAttribute("data-marcador", "");
         const [linha, coluna] = pos;
         try {
-            if (this.elemento.classList.contains("preto")) {
-                const casasAhFrente = this.casasAhFrente(linha, coluna);
-                const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
-                this.marcarEmSequencia(casasNaDiagonal, true);
-                Jogo.marcarEmSequencia(casasAhFrente);
-                Jogo.prepararMovimento();
-            }
-            else {
-                const casasAhFrente = this.casasAhFrente(linha, coluna);
-                const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
-                this.marcarEmSequencia(casasNaDiagonal, true);
-                Jogo.marcarEmSequencia(casasAhFrente);
-                Jogo.prepararMovimento();
-            }
+            const casasAhFrente = this.casasAhFrente(linha, coluna);
+            const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
+            Jogo.marcarGrupo(casasNaDiagonal, true);
+            Jogo.marcarEmSequencia(casasAhFrente);
+            Jogo.prepararMovimento();
         }
         catch (TypeError) {
             return;

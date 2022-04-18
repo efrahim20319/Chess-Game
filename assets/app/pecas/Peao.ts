@@ -4,7 +4,7 @@ export class Peao extends Peca {
     primeira_jogada: boolean;
     constructor() {
         super();
-        this.primeira_jogada = true
+        this.primeira_jogada = true;
     }
 
     casasNaDiagonal(linha: number, coluna: number): Array<Element> {
@@ -43,7 +43,7 @@ export class Peao extends Peca {
     killers(): Array<Element> {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const killers = this.casasNaDiagonal(linha, coluna);
-        return killers
+        return killers;
     }
 
     mostrarDisponiveis() {
@@ -52,19 +52,11 @@ export class Peao extends Peca {
         this.elemento.setAttribute("data-marcador", "");
         const [linha, coluna] = pos;
         try {
-            if (this.elemento.classList.contains("preto")) {
-                const casasAhFrente = this.casasAhFrente(linha, coluna);
-                const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
-                this.marcarEmSequencia(casasNaDiagonal, true);
-                Jogo.marcarEmSequencia(casasAhFrente);
-                Jogo.prepararMovimento();
-            } else {
-                const casasAhFrente = this.casasAhFrente(linha, coluna);
-                const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
-                this.marcarEmSequencia(casasNaDiagonal, true);
-                Jogo.marcarEmSequencia(casasAhFrente);
-                Jogo.prepararMovimento();
-            }
+            const casasAhFrente = this.casasAhFrente(linha, coluna);
+            const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
+            Jogo.marcarGrupo(casasNaDiagonal, true);
+            Jogo.marcarEmSequencia(casasAhFrente);
+            Jogo.prepararMovimento();
         } catch (TypeError) {
             return;
         }

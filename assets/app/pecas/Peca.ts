@@ -78,21 +78,14 @@ export class Peca {
     }
 
     marcarEmSequencia(casas: Array<Element>, bloquearNoUltimo = false) {
-        for (const casa of casas) {
-            if (Jogo.casaEstaOcupada(casa)) {
-                if (
-                    Jogo.corEhDiferente(this.elemento, casa.firstElementChild)
-                ) {
-                    // Pode ser simplificado mas eu prefiro deixar assim
-                    Jogo.marcar(casa, true);
-                    if (!bloquearNoUltimo) return;
-                }
-                if (!bloquearNoUltimo) return;
-            }
-            Jogo.marcar(casa);
-        }
+        const marcacoes = this.marcacoes(casas, bloquearNoUltimo);
+        marcacoes.forEach((casa, indice) =>
+            indice == marcacoes.length
+                ? Jogo.marcar(casa, false)
+                : Jogo.marcar(casa, true)
+        );
     }
-    marcacoes(casas: Array<HTMLDivElement>, bloquearNoUltimo = false): Array<HTMLDivElement> {
+    marcacoes(casas: Array<Element>, bloquearNoUltimo = false): Array<Element> {
         const casasAhMarcar = [];
         for (const casa of casas) {
             if (Jogo.PossuiPeca(casa)) {

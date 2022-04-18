@@ -111,9 +111,9 @@ export class Jogo {
             Jogo.marcar(casa, force);
         }
     }
-    static marcarGrupo(casas) {
+    static marcarGrupo(casas, forceOption = false) {
         for (const casa of casas) {
-            Jogo.marcar(casa);
+            Jogo.marcar(casa, forceOption);
         }
     }
     static removerEventos(elemento, ClasseRemovida = "") {
