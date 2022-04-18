@@ -145,6 +145,36 @@ export class Jogador {
         }
     }
 
+    IndisponiveisAoReiAdversario(): Element[] {
+        const casasAhmarcar = Array();
+        this.peoes.forEach((peao) => {
+            console.log(peao, peao.vitimas());
+            casasAhmarcar.push(...peao.vitimas());
+        });
+        this.torres.forEach((torre) => {
+            console.log(torre, torre.casasAhmarcar());
+            casasAhmarcar.push(...torre.casasAhmarcar());
+        });
+        this.bispos.forEach((bispo) => {
+            console.log(bispo, bispo.casasAhmarcar());
+            casasAhmarcar.push(...bispo.casasAhmarcar());
+        });
+        this.cavalos.forEach((cavalo) => {
+            console.log(cavalo, cavalo.casasAhVolta());
+            casasAhmarcar.push(...cavalo.casasAhVolta());
+        });
+        this.rainhas.forEach((rainha) => {
+            console.log(rainha, rainha.casasAhmarcar());
+            casasAhmarcar.push(...rainha.casasAhmarcar());
+        });
+        this.rei.forEach((rei) => {
+            console.log(rei, rei.casasAhVolta());
+            casasAhmarcar.push(...rei.casasAhVolta());
+        });
+
+        return casasAhmarcar;
+    }
+
     vitimas(): Array<Element> {
         const vitimas = Array();
         this.peoes.forEach((peao) => vitimas.push(...peao.vitimas()));

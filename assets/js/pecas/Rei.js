@@ -5,14 +5,14 @@ export class Rei extends Peca {
         super();
     }
     vitimas() {
-        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const inst = this;
-        const vitimas = this.casasAhVolta(linha, coluna).filter((casa) => casa !== undefined &&
+        const vitimas = this.casasAhVolta().filter((casa) => casa !== undefined &&
             Jogo.PossuiPeca(casa) &&
             Jogo.corEhDiferente(casa.firstElementChild, inst.elemento));
         return vitimas;
     }
-    casasAhVolta(linha, coluna) {
+    casasAhVolta() {
+        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const casa_a_tras = Jogo.obterCasa(linha + 1, coluna);
         const casa_a_frente = Jogo.obterCasa(linha - 1, coluna);
         const casa_a_direita = Jogo.obterCasa(linha, coluna + 1);
@@ -30,13 +30,14 @@ export class Rei extends Peca {
             casa_topo_esquerda,
             casa_baixo_direita,
             casa_baixo_esquerda,
-        ];
+        ].filter((casa) => (casa !== undefined && !Jogo.PossuiPeca(casa)) ||
+            (Jogo.PossuiPeca(casa) &&
+                Jogo.corEhDiferente(casa.firstElementChild, this.elemento)));
     }
     mostrarDisponiveis() {
         Jogo.desmarcarTudo();
         this.elemento.setAttribute("data-marcador", "");
-        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
-        const casasAhmarcar = this.casasAhVolta(linha, coluna);
+        const casasAhmarcar = this.casasAhVolta();
         Jogo.marcarGrupo(casasAhmarcar);
         Jogo.prepararMovimento();
     }

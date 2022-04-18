@@ -15,7 +15,9 @@ export class Peca {
         let casas = [];
         let iteracoes = 8 - coluna;
         for (linha--, coluna++; iteracoes > 0; linha--, coluna++, iteracoes--) {
-            casas.push(Jogo.obterCasa(linha, coluna));
+            const casa = Jogo.obterCasa(linha, coluna);
+            if (casa == undefined) return casas;
+            casas.push(casa);
         }
         return casas;
     }
@@ -23,7 +25,9 @@ export class Peca {
     casas_topo_esquerda(linha: number, coluna: number) {
         let casas = [];
         for (linha--, coluna--; coluna >= 0; linha--, coluna--) {
-            casas.push(Jogo.obterCasa(linha, coluna));
+            const casa = Jogo.obterCasa(linha, coluna);
+            if (casa == undefined) return casas;
+            casas.push(casa);
         }
         return casas;
     }
@@ -32,7 +36,9 @@ export class Peca {
         let casas = [];
         let iteracoes = 8 - coluna;
         for (linha++, coluna++; iteracoes > 0; linha++, coluna++, iteracoes--) {
-            casas.push(Jogo.obterCasa(linha, coluna));
+            const casa = Jogo.obterCasa(linha, coluna);
+            if (casa == undefined) return casas;
+            casas.push(casa);
         }
         return casas;
     }
@@ -40,7 +46,9 @@ export class Peca {
     casas_baixo_esquerda(linha: number, coluna: number) {
         let casas = [];
         for (linha++, coluna--; coluna >= 0; linha++, coluna--) {
-            casas.push(Jogo.obterCasa(linha, coluna));
+            const casa = Jogo.obterCasa(linha, coluna);
+            if (casa == undefined) return casas;
+            casas.push(casa);
         }
         return casas;
     }

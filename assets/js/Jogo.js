@@ -272,6 +272,17 @@ export class Jogo {
             vitimas[0].classList.add("cheque");
         }
     }
+    static IndisponisveisAoRei() {
+        let indisponiveis = [];
+        if (Jogo.alter) {
+            indisponiveis = this.jogador2.IndisponiveisAoReiAdversario();
+        }
+        else {
+            indisponiveis = this.jogador1.IndisponiveisAoReiAdversario();
+        }
+        const indisponiveisSet = new Set(indisponiveis);
+        console.log([...indisponiveisSet]);
+    }
     static mover(marcador, marcado) {
         Jogo.tratarPeao(marcador, marcado);
         if (Jogo.PossuiPeca(marcado))
@@ -282,6 +293,7 @@ export class Jogo {
         Jogo.removerTodosEventos();
         Jogo.atualizar();
         Jogo.EstaEmCheque();
+        Jogo.IndisponisveisAoRei();
     }
     static comer(marcado) {
         marcado.innerHTML = "";

@@ -298,6 +298,17 @@ export class Jogo {
         }
     }
 
+    static IndisponisveisAoRei() {
+        let indisponiveis = []
+        if (Jogo.alter) {
+            indisponiveis = this.jogador2.IndisponiveisAoReiAdversario();
+        } else {
+            indisponiveis = this.jogador1.IndisponiveisAoReiAdversario();
+        }
+        const indisponiveisSet = new Set(indisponiveis)
+        console.log([...indisponiveisSet]);
+    }
+
     static mover(marcador: any, marcado: any) {
         Jogo.tratarPeao(marcador, marcado);
         if (Jogo.PossuiPeca(marcado)) Jogo.comer(marcado);
@@ -307,6 +318,7 @@ export class Jogo {
         Jogo.removerTodosEventos();
         Jogo.atualizar();
         Jogo.EstaEmCheque();
+        Jogo.IndisponisveisAoRei()
     }
 
     static comer(marcado: HTMLDivElement) {
