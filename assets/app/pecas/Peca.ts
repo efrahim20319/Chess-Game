@@ -110,4 +110,16 @@ export class Peca {
         }
         return casasAhMarcar;
     }
+
+    marcacaoEspecial(casas: Array<Element>, bloquearNoUltimo = false): Array<Element> {
+        const casasAhMarcar = [];
+        for (const casa of casas) {
+            if (Jogo.PossuiPeca(casa)) {
+                    casasAhMarcar.push(casa);
+                if (!bloquearNoUltimo) break;
+            }
+            casasAhMarcar.push(casa);
+        }
+        return casasAhMarcar;
+    }
 }

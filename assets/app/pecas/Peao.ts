@@ -7,7 +7,27 @@ export class Peao extends Peca {
         this.primeira_jogada = true;
     }
 
-    casasNaDiagonal(linha: number, coluna: number): Array<Element> {
+    indisponiveisAoReiAdversario(): Array<Element> {
+        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
+        let sinal = "";
+        Jogo.corDaPeca(this.elemento) == "branco"
+            ? (sinal = "-")
+            : (sinal = "+");
+        const casa1 = Jogo.obterCasa(eval(`${linha} ${sinal} 1`), coluna - 1);
+        const casa2 = Jogo.obterCasa(eval(`${linha} ${sinal} 1`), coluna + 1);
+        const casasAhMarcar = new Array();
+        if (!Jogo.PossuiPeca(casa1) && casa1 || Jogo.PossuiPeca(casa1) && !Jogo.corEhDiferente(casa1.firstElementChild, this.elemento)) {
+            casasAhMarcar.push(casa1)
+        }
+
+        if (!Jogo.PossuiPeca(casa2) && casa2 || Jogo.PossuiPeca(casa2) && !Jogo.corEhDiferente(casa2.firstElementChild, this.elemento)) {
+            casasAhMarcar.push(casa2)
+        }
+        return casasAhMarcar;
+    }
+
+    casasNaDiagonal(): Array<Element> {
+        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         let sinal = "";
         Jogo.corDaPeca(this.elemento) == "branco"
             ? (sinal = "-")
@@ -26,7 +46,8 @@ export class Peao extends Peca {
         return casasAhMarcar;
     }
 
-    casasAhFrente(linha: number, coluna: number): Array<Element> {
+    casasAhFrente(): Array<Element> {
+        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         let sinal = "";
         let primeira_play;
         Jogo.corDaPeca(this.elemento) == "branco"
@@ -41,19 +62,16 @@ export class Peao extends Peca {
     }
 
     vitimas(): Array<Element> {
-        const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
-        const vitimas = this.casasNaDiagonal(linha, coluna);
+        const vitimas = this.casasNaDiagonal();
         return vitimas;
     }
 
     mostrarDisponiveis() {
         Jogo.desmarcarTudo();
-        let pos = Jogo.obetrPosicao(this.elemento.parentElement);
         this.elemento.setAttribute("data-marcador", "");
-        const [linha, coluna] = pos;
         try {
-            const casasAhFrente = this.casasAhFrente(linha, coluna);
-            const casasNaDiagonal = this.casasNaDiagonal(linha, coluna);
+            const casasAhFrente = this.casasAhFrente();
+            const casasNaDiagonal = this.casasNaDiagonal();
             Jogo.marcarGrupo(casasNaDiagonal, true);
             Jogo.marcarEmSequencia(casasAhFrente);
             Jogo.prepararMovimento();

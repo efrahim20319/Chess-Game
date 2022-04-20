@@ -124,35 +124,35 @@ export class Jogador {
             const inst_jogador = this;
             reis[i].addEventListener("click", function () {
                 if (inst_jogador.vez)
-                    rei.mostrarDisponiveis();
+                    rei.mostrarDisponiveis(inst_jogador.casasIndisponiveisAoRei);
             });
         }
     }
     IndisponiveisAoReiAdversario() {
         const casasAhmarcar = Array();
         this.peoes.forEach((peao) => {
-            console.log(peao, peao.vitimas());
-            casasAhmarcar.push(...peao.vitimas());
+            console.log("Elemento", peao.elemento, "\nCasas\n\n", peao.indisponiveisAoReiAdversario());
+            casasAhmarcar.push(...peao.indisponiveisAoReiAdversario());
         });
         this.torres.forEach((torre) => {
-            console.log(torre, torre.casasAhmarcar());
-            casasAhmarcar.push(...torre.casasAhmarcar());
+            console.log("Elemento", torre.elemento, "\nCasas\n\n", torre.indisponiveisAoReiAdversario());
+            casasAhmarcar.push(...torre.indisponiveisAoReiAdversario());
         });
         this.bispos.forEach((bispo) => {
-            console.log(bispo, bispo.casasAhmarcar());
-            casasAhmarcar.push(...bispo.casasAhmarcar());
+            console.log("Elemento", bispo.elemento, "\nCasas\n\n", bispo.indisponiveisAoReiAdversario());
+            casasAhmarcar.push(...bispo.indisponiveisAoReiAdversario());
         });
         this.cavalos.forEach((cavalo) => {
-            console.log(cavalo, cavalo.casasAhVolta());
-            casasAhmarcar.push(...cavalo.casasAhVolta());
+            console.log("Elemento", cavalo.elemento, "\nCasas\n\n", cavalo.indisponiveisAoReiAdversario());
+            casasAhmarcar.push(...cavalo.indisponiveisAoReiAdversario());
         });
         this.rainhas.forEach((rainha) => {
-            console.log(rainha, rainha.casasAhmarcar());
-            casasAhmarcar.push(...rainha.casasAhmarcar());
+            console.log("Elemento", rainha.elemento, "\nCasas\n\n", rainha.indisponiveisAoReiAdversario());
+            casasAhmarcar.push(...rainha.indisponiveisAoReiAdversario());
         });
         this.rei.forEach((rei) => {
-            console.log(rei, rei.casasAhVolta());
-            casasAhmarcar.push(...rei.casasAhVolta());
+            console.log("Elemento", rei.elemento, "\nCasas\n\n", rei.indisponiveisAoReiAdversario());
+            casasAhmarcar.push(...rei.indisponiveisAoReiAdversario());
         });
         return casasAhmarcar;
     }

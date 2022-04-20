@@ -2,8 +2,9 @@ export class Jogo {
     static init(jogador1, jogador2) {
         Jogo.casas = Jogo.obterMatrix();
         Jogo.alter = true; //vez da peca branca
-        Jogo.jogador2 = jogador1;
-        Jogo.jogador1 = jogador2;
+        Jogo.jogador1 = jogador1;
+        Jogo.jogador2 = jogador2;
+        Jogo.IndisponisveisAoRei();
     }
     static obetrPosicao(elemento) {
         for (let i = 0; i < 8; i++) {
@@ -273,15 +274,16 @@ export class Jogo {
         }
     }
     static IndisponisveisAoRei() {
-        let indisponiveis = [];
+        let indisponiveis;
+        let jogador;
         if (Jogo.alter) {
-            indisponiveis = this.jogador2.IndisponiveisAoReiAdversario();
+            indisponiveis = new Set(this.jogador2.IndisponiveisAoReiAdversario());
+            this.jogador1.casasIndisponiveisAoRei = [...indisponiveis];
         }
         else {
-            indisponiveis = this.jogador1.IndisponiveisAoReiAdversario();
+            indisponiveis = new Set(this.jogador1.IndisponiveisAoReiAdversario());
+            this.jogador2.casasIndisponiveisAoRei = [...indisponiveis];
         }
-        const indisponiveisSet = new Set(indisponiveis);
-        console.log([...indisponiveisSet]);
     }
     static mover(marcador, marcado) {
         Jogo.tratarPeao(marcador, marcado);

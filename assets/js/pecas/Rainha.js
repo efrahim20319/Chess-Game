@@ -4,10 +4,10 @@ export class Rainha extends Peca {
     constructor() {
         super();
     }
-    casasAhmarcar() {
+    indisponiveisAoReiAdversario() {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const casasAhMarcar = new Array()
-            .concat(this.marcacoes(this.casas_topo_direita(linha, coluna)), this.marcacoes(this.casas_topo_esquerda(linha, coluna)), this.marcacoes(this.casas_baixo_direita(linha, coluna)), this.marcacoes(this.casas_baixo_esquerda(linha, coluna)), this.marcacoes(this.casas_a_Frente(linha, coluna)), this.marcacoes(this.casas_a_tras(linha, coluna)), this.marcacoes(this.casas_a_direita(linha, coluna)), this.marcacoes(this.casas_a_esquerda(linha, coluna)));
+            .concat(this.marcacaoEspecial(this.casas_topo_direita(linha, coluna)), this.marcacaoEspecial(this.casas_topo_esquerda(linha, coluna)), this.marcacaoEspecial(this.casas_baixo_direita(linha, coluna)), this.marcacaoEspecial(this.casas_baixo_esquerda(linha, coluna)), this.marcacaoEspecial(this.casas_a_Frente(linha, coluna)), this.marcacaoEspecial(this.casas_a_tras(linha, coluna)), this.marcacaoEspecial(this.casas_a_direita(linha, coluna)), this.marcacaoEspecial(this.casas_a_esquerda(linha, coluna)));
         return casasAhMarcar;
     }
     vitimas() {

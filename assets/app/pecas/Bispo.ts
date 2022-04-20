@@ -6,13 +6,13 @@ export class Bispo extends Peca {
         super();
     }
 
-    casasAhmarcar() {
+    indisponiveisAoReiAdversario() {
         const [linha, coluna] = Jogo.obetrPosicao(this.elemento.parentElement);
         const casasAhmarcar = new Array().concat(
-            this.marcacoes(this.casas_topo_direita(linha, coluna)),
-            this.marcacoes(this.casas_topo_esquerda(linha, coluna)),
-            this.marcacoes(this.casas_baixo_direita(linha, coluna)),
-            this.marcacoes(this.casas_baixo_esquerda(linha, coluna))
+            this.marcacaoEspecial(this.casas_topo_direita(linha, coluna)),
+            this.marcacaoEspecial(this.casas_topo_esquerda(linha, coluna)),
+            this.marcacaoEspecial(this.casas_baixo_direita(linha, coluna)),
+            this.marcacaoEspecial(this.casas_baixo_esquerda(linha, coluna))
         );
         return casasAhmarcar;
     }

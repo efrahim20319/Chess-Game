@@ -8,8 +8,9 @@ export class Jogo {
     static init(jogador1: Jogador, jogador2: Jogador) {
         Jogo.casas = Jogo.obterMatrix();
         Jogo.alter = true; //vez da peca branca
-        Jogo.jogador2 = jogador1;
-        Jogo.jogador1 = jogador2;
+        Jogo.jogador1 = jogador1;
+        Jogo.jogador2 = jogador2;
+        Jogo.IndisponisveisAoRei()
     }
 
     static obetrPosicao(elemento: Element): Array<number> {
@@ -299,14 +300,15 @@ export class Jogo {
     }
 
     static IndisponisveisAoRei() {
-        let indisponiveis = []
+        let indisponiveis: Set<Element>
+        let jogador: Jogador
         if (Jogo.alter) {
-            indisponiveis = this.jogador2.IndisponiveisAoReiAdversario();
+            indisponiveis = new Set(this.jogador2.IndisponiveisAoReiAdversario());
+            this.jogador1.casasIndisponiveisAoRei = [...indisponiveis]
         } else {
-            indisponiveis = this.jogador1.IndisponiveisAoReiAdversario();
+            indisponiveis = new Set(this.jogador1.IndisponiveisAoReiAdversario());
+            this.jogador2.casasIndisponiveisAoRei = [...indisponiveis]
         }
-        const indisponiveisSet = new Set(indisponiveis)
-        console.log([...indisponiveisSet]);
     }
 
     static mover(marcador: any, marcado: any) {
