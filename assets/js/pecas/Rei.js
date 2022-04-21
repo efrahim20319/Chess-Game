@@ -70,8 +70,6 @@ export class Rei extends Peca {
             if (!(CasaEmIndispovivel(casa, casasIndisponiveis)))
                 casasAhMarcar.push(casa);
         }
-        console.log("Indisponiveis", casasIndisponiveis);
-        console.log("Disponiveis", casasAhMarcar);
         return casasAhMarcar;
     }
     mostrarDisponiveis(indisponiveis = []) {

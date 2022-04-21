@@ -1,9 +1,13 @@
 export class Jogo {
     static init(jogador1, jogador2) {
-        Jogo.casas = Jogo.obterMatrix();
-        Jogo.alter = true; //vez da peca branca
         Jogo.jogador1 = jogador1;
         Jogo.jogador2 = jogador2;
+        Jogo.casas = Jogo.obterMatrix();
+        Jogo.alter = true; //vez da peca branca
+        Jogo.motarPecas(0, 1, "preto");
+        Jogo.motarPecas(7, 6);
+        Jogo.pintarTabuleiro();
+        Jogo.atualizar();
         Jogo.IndisponisveisAoRei();
     }
     static obetrPosicao(elemento) {
@@ -79,9 +83,7 @@ export class Jogo {
                 return true;
             return false;
         }
-        catch (TypeError) {
-            // console.log("ocupado:", casa);
-        }
+        catch (TypeError) { }
     }
     static PossuiPeca(casa) {
         if (casa == undefined)
@@ -93,7 +95,7 @@ export class Jogo {
     static marcar(casa, forceOption = false) {
         try {
             if (Jogo.casaEstaOcupada(casa) && !forceOption) {
-                // console.log("Esta ocupado");
+                // Esta Ocupado
                 return;
             }
             if (Jogo.PossuiPeca(casa))
@@ -101,15 +103,14 @@ export class Jogo {
             casa.classList.add("marcado");
         }
         catch (TypeError) {
-            // console.log("Erro ao marcar");
+            //
         }
     }
-    static marcarEmSequencia(casas, force = false) {
-        for (let i = 0; i < casas.length; i++) {
-            const casa = casas[i];
+    static marcarEmSequencia(casas, forceOption = false) {
+        for (const casa of casas) {
             if (Jogo.casaEstaOcupada(casa))
                 return;
-            Jogo.marcar(casa, force);
+            Jogo.marcar(casa, forceOption);
         }
     }
     static marcarGrupo(casas, forceOption = false) {
@@ -185,10 +186,13 @@ export class Jogo {
             Jogo.jogador2.vez = false;
         }
         else {
-            //O unico else do codigo
             Jogo.jogador1.vez = false;
             Jogo.jogador2.vez = true;
         }
+    }
+    static atualizar() {
+        Jogo.jogador1.atualizar();
+        Jogo.jogador2.atualizar();
     }
     static promover(peao) {
         const promoter = document.querySelector(".promoter");
@@ -247,21 +251,12 @@ export class Jogo {
             if (peca.classList.contains(item))
                 return item;
     }
-    static atualizar() {
-        Jogo.jogador1.atualizar();
-        Jogo.jogador2.atualizar();
-    }
     static mostrarVitimas() {
-        let cor = "";
         let killers = [];
-        if (!Jogo.alter) {
-            cor = this.jogador1.corDasPecas;
+        if (!Jogo.alter)
             killers = this.jogador1.vitimas();
-        }
-        else {
-            cor = this.jogador2.corDasPecas;
+        else
             killers = this.jogador2.vitimas();
-        }
         const killersSet = new Set(killers);
         return new Array(...killersSet);
     }
@@ -275,7 +270,6 @@ export class Jogo {
     }
     static IndisponisveisAoRei() {
         let indisponiveis;
-        let jogador;
         if (Jogo.alter) {
             indisponiveis = new Set(this.jogador2.IndisponiveisAoReiAdversario());
             this.jogador1.casasIndisponiveisAoRei = [...indisponiveis];
@@ -298,7 +292,7 @@ export class Jogo {
         Jogo.IndisponisveisAoRei();
     }
     static comer(marcado) {
-        marcado.innerHTML = "";
+        marcado.firstElementChild.remove();
     }
 }
 Jogo.alter = true;

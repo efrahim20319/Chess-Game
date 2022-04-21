@@ -4,7 +4,6 @@ import { Torre } from "./pecas/Torre.js";
 import { Bispo } from "./pecas/Bispo.js";
 import { Rainha } from "./pecas/Rainha.js";
 import { Rei } from "./pecas/Rei.js";
-import { Jogo } from "./Jogo.js";
 
 export class Jogador {
     public vez: boolean;
@@ -142,44 +141,34 @@ export class Jogador {
             const rei = this.rei[i];
             const inst_jogador = this;
             reis[i].addEventListener("click", function () {
-                if (inst_jogador.vez) rei.mostrarDisponiveis(inst_jogador.casasIndisponiveisAoRei);
+                if (inst_jogador.vez)
+                    rei.mostrarDisponiveis(
+                        inst_jogador.casasIndisponiveisAoRei
+                    );
             });
         }
     }
 
     IndisponiveisAoReiAdversario(): Element[] {
         const casasAhmarcar = Array();
-        this.peoes.forEach((peao) => {
-            console.log("Elemento",peao.elemento, "\nCasas\n\n", peao.indisponiveisAoReiAdversario());
-            
-            casasAhmarcar.push(...peao.indisponiveisAoReiAdversario());
-        });
-        this.torres.forEach((torre) => {
-            console.log("Elemento",torre.elemento, "\nCasas\n\n", torre.indisponiveisAoReiAdversario());
-            
-            casasAhmarcar.push(...torre.indisponiveisAoReiAdversario());
-        });
-        this.bispos.forEach((bispo) => {
-            console.log("Elemento",bispo.elemento, "\nCasas\n\n", bispo.indisponiveisAoReiAdversario());
-            
-            casasAhmarcar.push(...bispo.indisponiveisAoReiAdversario());
-        });
-        this.cavalos.forEach((cavalo) => {
-            console.log("Elemento",cavalo.elemento, "\nCasas\n\n", cavalo.indisponiveisAoReiAdversario());
-            
-            casasAhmarcar.push(...cavalo.indisponiveisAoReiAdversario());
-        });
-        this.rainhas.forEach((rainha) => {
-            console.log("Elemento",rainha.elemento, "\nCasas\n\n", rainha.indisponiveisAoReiAdversario());
-            
-            casasAhmarcar.push(...rainha.indisponiveisAoReiAdversario());
-        });
-        this.rei.forEach((rei) => {
-            console.log("Elemento",rei.elemento, "\nCasas\n\n", rei.indisponiveisAoReiAdversario());
-            
-            casasAhmarcar.push(...rei.indisponiveisAoReiAdversario());
-        });
-
+        this.peoes.forEach((peao) =>
+            casasAhmarcar.push(...peao.indisponiveisAoReiAdversario())
+        );
+        this.torres.forEach((torre) =>
+            casasAhmarcar.push(...torre.indisponiveisAoReiAdversario())
+        );
+        this.bispos.forEach((bispo) =>
+            casasAhmarcar.push(...bispo.indisponiveisAoReiAdversario())
+        );
+        this.cavalos.forEach((cavalo) =>
+            casasAhmarcar.push(...cavalo.indisponiveisAoReiAdversario())
+        );
+        this.rainhas.forEach((rainha) =>
+            casasAhmarcar.push(...rainha.indisponiveisAoReiAdversario())
+        );
+        this.rei.forEach((rei) =>
+            casasAhmarcar.push(...rei.indisponiveisAoReiAdversario())
+        );
         return casasAhmarcar;
     }
 

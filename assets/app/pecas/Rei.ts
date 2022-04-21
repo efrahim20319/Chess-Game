@@ -80,15 +80,10 @@ export class Rei extends Peca {
             }
             return false;
         }
-
         const casasAhMarcar = new Array();
         for (const casa of casasAhvolta) {
             if (!(CasaEmIndispovivel(casa, casasIndisponiveis))) casasAhMarcar.push(casa)
         }
-        console.log("Indisponiveis", casasIndisponiveis);
-        console.log("Disponiveis", casasAhMarcar);
-        
-        
         return casasAhMarcar
     }
 

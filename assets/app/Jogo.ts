@@ -6,11 +6,15 @@ export class Jogo {
     static jogador1: Jogador;
     static jogador2: Jogador;
     static init(jogador1: Jogador, jogador2: Jogador) {
-        Jogo.casas = Jogo.obterMatrix();
-        Jogo.alter = true; //vez da peca branca
         Jogo.jogador1 = jogador1;
         Jogo.jogador2 = jogador2;
-        Jogo.IndisponisveisAoRei()
+        Jogo.casas = Jogo.obterMatrix();
+        Jogo.alter = true; //vez da peca branca
+        Jogo.motarPecas(0, 1, "preto");
+        Jogo.motarPecas(7, 6);
+        Jogo.pintarTabuleiro();
+        Jogo.atualizar();
+        Jogo.IndisponisveisAoRei();
     }
 
     static obetrPosicao(elemento: Element): Array<number> {
@@ -90,9 +94,7 @@ export class Jogo {
 
             if (casa.childNodes.length) return true;
             return false;
-        } catch (TypeError) {
-            // console.log("ocupado:", casa);
-        }
+        } catch (TypeError) {}
     }
 
     static PossuiPeca(casa: Element) {
@@ -104,22 +106,21 @@ export class Jogo {
     static marcar(casa: Element, forceOption = false) {
         try {
             if (Jogo.casaEstaOcupada(casa) && !forceOption) {
-                // console.log("Esta ocupado");
+                // Esta Ocupado
                 return;
             }
             if (Jogo.PossuiPeca(casa)) casa.classList.add("alvo");
 
             casa.classList.add("marcado");
         } catch (TypeError) {
-            // console.log("Erro ao marcar");
+            //
         }
     }
 
-    static marcarEmSequencia(casas: Array<Element>, force = false) {
-        for (let i = 0; i < casas.length; i++) {
-            const casa = casas[i];
+    static marcarEmSequencia(casas: Array<Element>, forceOption = false) {
+        for (const casa of casas) {
             if (Jogo.casaEstaOcupada(casa)) return;
-            Jogo.marcar(casa, force);
+            Jogo.marcar(casa, forceOption);
         }
     }
 
@@ -202,10 +203,14 @@ export class Jogo {
             Jogo.jogador1.vez = true;
             Jogo.jogador2.vez = false;
         } else {
-            //O unico else do codigo
             Jogo.jogador1.vez = false;
             Jogo.jogador2.vez = true;
         }
+    }
+
+    static atualizar() {
+        Jogo.jogador1.atualizar();
+        Jogo.jogador2.atualizar();
     }
 
     static promover(peao: HTMLSpanElement) {
@@ -268,23 +273,12 @@ export class Jogo {
             if (peca.classList.contains(item)) return item;
     }
 
-    static atualizar() {
-        Jogo.jogador1.atualizar();
-        Jogo.jogador2.atualizar();
-    }
 
     static mostrarVitimas(): Array<Element> {
-        let cor = "";
         let killers: Array<Element> = [];
-        if (!Jogo.alter) {
-            cor = this.jogador1.corDasPecas;
-            killers = this.jogador1.vitimas();
-        } else {
-            cor = this.jogador2.corDasPecas;
-            killers = this.jogador2.vitimas();
-        }
+        if (!Jogo.alter) killers = this.jogador1.vitimas();
+        else killers = this.jogador2.vitimas();
         const killersSet = new Set(killers);
-
         return new Array(...killersSet);
     }
 
@@ -300,14 +294,17 @@ export class Jogo {
     }
 
     static IndisponisveisAoRei() {
-        let indisponiveis: Set<Element>
-        let jogador: Jogador
+        let indisponiveis: Set<Element>;
         if (Jogo.alter) {
-            indisponiveis = new Set(this.jogador2.IndisponiveisAoReiAdversario());
-            this.jogador1.casasIndisponiveisAoRei = [...indisponiveis]
+            indisponiveis = new Set(
+                this.jogador2.IndisponiveisAoReiAdversario()
+            );
+            this.jogador1.casasIndisponiveisAoRei = [...indisponiveis];
         } else {
-            indisponiveis = new Set(this.jogador1.IndisponiveisAoReiAdversario());
-            this.jogador2.casasIndisponiveisAoRei = [...indisponiveis]
+            indisponiveis = new Set(
+                this.jogador1.IndisponiveisAoReiAdversario()
+            );
+            this.jogador2.casasIndisponiveisAoRei = [...indisponiveis];
         }
     }
 
@@ -320,10 +317,10 @@ export class Jogo {
         Jogo.removerTodosEventos();
         Jogo.atualizar();
         Jogo.EstaEmCheque();
-        Jogo.IndisponisveisAoRei()
+        Jogo.IndisponisveisAoRei();
     }
 
     static comer(marcado: HTMLDivElement) {
-        marcado.innerHTML = "";
+        marcado.firstElementChild.remove()
     }
 }
