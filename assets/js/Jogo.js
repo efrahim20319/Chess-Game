@@ -253,10 +253,10 @@ export class Jogo {
     }
     static mostrarVitimas() {
         let killers = [];
-        if (!Jogo.alter)
-            killers = this.jogador1.vitimas();
-        else
+        if (Jogo.alter)
             killers = this.jogador2.vitimas();
+        else
+            killers = this.jogador1.vitimas();
         const killersSet = new Set(killers);
         return new Array(...killersSet);
     }
