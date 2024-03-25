@@ -24,4 +24,4 @@ And finally
 live-server
 ```
 
-Hope you have fun playing and if you have some tips to improve, you can text my via instagram :)
+Hope you have fun playing it, and if you have some tips to help me improve this game, feel free to text my via instagram @whoisefrahim :)
