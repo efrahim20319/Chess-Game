@@ -8,7 +8,7 @@ This is a small project using typescript, it covers the basics concepts about it
 
 ### How to install and run
 
-To install the project, make sure you have installed nodeJS V14 or above, then run the following commands:
+To install the project, make sure you have installed nodeJS V14 or above, and also live-server installed globally, to do so run ``npm i -g live-server``, then run the following commands:
 
 ```
 git clone https://github.com/efrahim20319/Chess-Game.git Chess
